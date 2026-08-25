@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF8F5; color: #16130F;
+           font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+           -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+    a { color: #C31B18; text-decoration: none; }
+    a:hover { color: #8E110F; }
+    .serif { font-family: "Bodoni Moda", "Didot", Georgia, serif; }
+    .eyebrow { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: #8A8078; }
+    .rule { height: 1px; background: #E4DED5; border: 0; margin: 0; }
+
+    .scene { position: relative; overflow: hidden; background: #B9C6D2; }
+    .scene > i { position: absolute; display: block; }
+    .r1 { left: -6%; right: -6%; bottom: 26%; height: 62%;
+          clip-path: polygon(0% 100%,7% 54%,15% 76%,23% 34%,32% 64%,41% 26%,50% 58%,58% 18%,67% 52%,75% 30%,84% 62%,92% 40%,100% 66%,100% 100%); }
+    .r2 { left: -8%; right: -8%; bottom: 20%; height: 48%;
+          clip-path: polygon(0% 100%,9% 46%,18% 70%,27% 30%,37% 62%,46% 22%,56% 56%,66% 28%,76% 60%,86% 36%,95% 64%,100% 48%,100% 100%); }
+    .r3 { left: -4%; right: -4%; bottom: 14%; height: 32%;
+          clip-path: polygon(0% 100%,11% 40%,22% 66%,33% 28%,45% 58%,57% 24%,69% 54%,80% 32%,91% 60%,100% 44%,100% 100%); }
+    .w  { left: 0; right: 0; bottom: 0; height: 16%; }
+    .gr { inset: 0; opacity: .16; mix-blend-mode: multiply;
+          background-image: repeating-linear-gradient(115deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px),
+                            repeating-linear-gradient(28deg, rgba(0,0,0,.06) 0 1px, transparent 1px 4px); }
+    .vg { inset: 0; background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(20,17,14,.34) 100%); }
+    .sky-dawn  { background: linear-gradient(180deg,#F0D3C0 0%,#E7B9A5 26%,#CFC3C0 58%,#AEB6BE 100%); }
+    .sky-clear { background: linear-gradient(180deg,#6F9CC0 0%,#A7C6DC 48%,#DCE8EF 100%); }
+    .sky-dusk  { background: linear-gradient(180deg,#33415A 0%,#6C6379 40%,#C08D72 76%,#E4BC95 100%); }
+    .sky-mist  { background: linear-gradient(180deg,#C6CDD2 0%,#DDE2E4 52%,#EFF1F1 100%); }
+    .sky-storm { background: linear-gradient(180deg,#3D4A55 0%,#5E6B75 46%,#8D969C 100%); }
+    .sky-gold  { background: linear-gradient(180deg,#8FA9B8 0%,#D8C29C 55%,#F0DDBB 100%); }
+    .t-alpine .r1 { background: linear-gradient(180deg,#FFFFFF 0 13%,#CBD6E0 13% 36%,#8B98A6 36% 100%); opacity: .72; }
+    .t-alpine .r2 { background: linear-gradient(180deg,#F4F7FA 0 10%,#9FADBB 10% 40%,#63707E 40% 100%); opacity: .88; }
+    .t-alpine .r3 { background: linear-gradient(180deg,#DCE3EA 0 7%,#5A6774 7% 44%,#39434E 44% 100%); }
+    .t-alpine .w  { background: linear-gradient(180deg,#587E97,#31536B); }
+    .t-emerald .r1 { background: linear-gradient(180deg,#FFFFFF 0 12%,#BFD1C6 12% 34%,#7E9482 34% 100%); opacity: .7; }
+    .t-emerald .r2 { background: linear-gradient(180deg,#EAF2EB 0 9%,#8AA391 9% 40%,#4F6B57 40% 100%); opacity: .9; }
+    .t-emerald .r3 { background: linear-gradient(180deg,#CFE0D3 0 6%,#3F5A47 6% 44%,#26382C 44% 100%); }
+    .t-emerald .w  { background: linear-gradient(180deg,#3F7C79,#1F4E51); }
+    .t-glacier .r1 { background: linear-gradient(180deg,#FFFFFF 0 16%,#D3E6EC 16% 40%,#8FB3BE 40% 100%); opacity: .75; }
+    .t-glacier .r2 { background: linear-gradient(180deg,#F2FAFC 0 13%,#A6C7D1 13% 42%,#5F868F 42% 100%); opacity: .9; }
+    .t-glacier .r3 { background: linear-gradient(180deg,#DDEFF3 0 9%,#4E7079 9% 46%,#2E4850 46% 100%); }
+    .t-glacier .w  { background: linear-gradient(180deg,#5FA0AA,#2E6570); }
+    .t-slate .r1 { background: linear-gradient(180deg,#F3F5F7 0 11%,#B4BCC3 11% 34%,#78828B 34% 100%); opacity: .62; }
+    .t-slate .r2 { background: linear-gradient(180deg,#E4E8EB 0 9%,#8B949C 9% 40%,#4C555D 40% 100%); opacity: .86; }
+    .t-slate .r3 { background: linear-gradient(180deg,#C9D0D6 0 6%,#39424A 6% 44%,#1F262C 44% 100%); }
+    .t-slate .w  { background: linear-gradient(180deg,#4B6272,#232F39); }
+    .t-golden .r1 { background: linear-gradient(180deg,#FFF7E6 0 13%,#E4D3B4 13% 36%,#AD9C7E 36% 100%); opacity: .7; }
+    .t-golden .r2 { background: linear-gradient(180deg,#F7E9CE 0 10%,#C0A87F 10% 40%,#7E6A4B 40% 100%); opacity: .9; }
+    .t-golden .r3 { background: linear-gradient(180deg,#E7D6B4 0 7%,#5F4F36 7% 44%,#362C1E 44% 100%); }
+    .t-golden .w  { background: linear-gradient(180deg,#7E7A52,#443F2A); }
+
+    .chip { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px;
+            border-radius: 999px; border: 1px solid #DED7CE; background: #FFFFFF; color: #4A423B;
+            font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+            transition: background .18s ease, color .18s ease, border-color .18s ease; }
+    .chip:not(.chip-on):hover { border-color: var(--red); color: var(--red); }
+    .chip-on { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+    .chip svg { width: 18px; height: 18px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 28px;
+           border-radius: 2px; border: 0; cursor: pointer; font: 600 15px/1 Karla, Arial, sans-serif;
+           transition: transform .18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-red { background: var(--red); color: #FFFFFF; }
+    .btn-ink { background: #16130F; color: #FBF9F6; }
+    .btn-ghost { background: transparent; color: #FBF9F6; box-shadow: inset 0 0 0 1px rgba(251,249,246,.55); }
+    .nav-i { display: inline-flex; align-items: center; gap: 7px; height: 44px; color: #FBF9F6;
+             font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+             border-bottom: 2px solid transparent; transition: border-color .2s ease; }
+    .nav-i:hover { border-bottom-color: var(--red); }
+    .nav-i svg { width: 17px; height: 17px; }
+    .nav-on { border-bottom-color: var(--red); }
+
+    .xlink { display: flex; align-items: center; gap: 14px; padding: 22px 24px; background: #FFFFFF;
+             border: 1px solid #E4DED5; border-radius: 3px; cursor: pointer;
+             transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .xlink:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 18px 34px rgba(22,19,15,.10); }
+    .xlink svg { width: 22px; height: 22px; color: #C31B18; flex-shrink: 0; }
+
+    .pin { position: absolute; transform: translate(-50%,-100%); cursor: pointer; transition: opacity .25s ease; }
+    .pin .dot { width: 15px; height: 15px; border-radius: 50%; background: #FFFFFF;
+                border: 4px solid var(--red); box-shadow: 0 3px 10px rgba(22,19,15,.35); transition: transform .2s ease; }
+    .pin:hover .dot { transform: scale(1.28); }
+    .pin .lab { position: absolute; left: 50%; top: -26px; transform: translateX(-50%); white-space: nowrap;
+                font: 600 11.5px/1 Karla, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;
+                color: #16130F; background: rgba(255,255,255,.9); padding: 4px 8px; border-radius: 2px; }
+    .pin-on .dot { background: var(--red); border-color: #FFFFFF; transform: scale(1.35); }
+    .pin-off { opacity: .22; }
+
+    .row { transition: background .2s ease; }
+    .row:hover { background: #FCFAF7; }
+    .step { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #DED7CE; background: #FFFFFF;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; color: #16130F;
+            transition: border-color .18s ease, color .18s ease; }
+    .step:hover { border-color: var(--red); color: var(--red); }
+    .card { background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px rgba(22,19,15,.12); border-color: #D6CEC3; }
+  </style>
+</helmet>
+
+<div style="--red: {{red}}; width: 1440px; margin: 0 auto; background: #FAF8F5; overflow: hidden">
+  <header style="background: #16130F; display: flex; align-items: center; justify-content: space-between; padding: 0 80px; height: 84px">
+      <div style="display: flex; align-items: center; gap: 13px">
+        <div style="width: 30px; height: 30px; background: var(--red); position: relative; border-radius: 2px">
+          <div style="position: absolute; left: 50%; top: 22%; width: 3.5px; height: 56%; margin-left: -1.75px; background: #FFFFFF"></div>
+          <div style="position: absolute; top: 50%; left: 22%; height: 3.5px; width: 56%; margin-top: -1.75px; background: #FFFFFF"></div>
+        </div>
+        <div class="serif" style="color: #FBF9F6; font-size: 19px; letter-spacing: .04em">Grüezi Schweiz</div>
+      </div>
+      <nav style="display: flex; align-items: center; gap: 30px">
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>Regions</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>Rail Passes</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>Hostels</div>
+        <div class="nav-i nav-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3"/></svg>Find a Trip</div>
+        <button class="btn btn-red" style="height: 44px; padding: 0 20px; font-size: 14px">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          Plan My Route
+        </button>
+      </nav>
+  </header>
+
+  <!-- huge search over full-bleed image -->
+  <section style="position: relative; height: 800px; overflow: hidden">
+    <div class="scene sky-dawn t-glacier" style="position: absolute; inset: 0">
+      <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+    </div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,14,.52) 0%, rgba(20,17,14,.30) 45%, rgba(20,17,14,.66) 100%)"></div>
+
+    <div style="position: relative; padding: 92px 160px 0; text-align: center">
+      <div class="eyebrow" style="color: #F1DED4">Find a trip</div>
+      <h1 class="serif" style="margin: 18px 0 0; color: #FBF9F6; font-size: 74px; line-height: 1.0; font-weight: 400">
+        Start with a month and a budget.<br>We will find the valley.
+      </h1>
+
+      <!-- the search box -->
+      <div style="display: flex; align-items: center; gap: 18px; margin: 46px auto 0; max-width: 980px; background: rgba(251,249,246,.96); border-radius: 3px; padding: 12px 12px 12px 28px; box-shadow: 0 26px 60px rgba(20,17,14,.34)">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#C31B18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3"/></svg>
+        <input type="text" placeholder="A place, a peak, or “somewhere quiet with good trains”" style="flex-grow: 1; border: 0; outline: 0; background: transparent; font: 300 21px/1.3 Karla, Arial, sans-serif; color: #16130F; padding: 18px 0" />
+        <button class="btn btn-red" style="height: 62px; padding: 0 34px; font-size: 16px; flex-shrink: 0">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Search trips
+        </button>
+      </div>
+
+      <!-- filters -->
+      <div style="max-width: 1120px; margin: 26px auto 0; background: rgba(20,17,14,.42); border: 1px solid rgba(251,249,246,.20); border-radius: 3px; padding: 24px 28px 26px; text-align: left">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 130px minmax(0,1fr); gap: 20px; align-items: center; padding: 12px 0; border-top: 1px solid rgba(251,249,246,.14)">
+            <div style="display: flex; align-items: center; gap: 9px; color: #D7CCC4; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#E8877F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{g.icon}}"/></svg>
+              {{g.label}}
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 9px">
+              <sc-for list="{{g.opts}}" as="o" hint-placeholder-count="4">
+                <div class="chip {{o.cls}}" onClick="{{o.go}}" style="height: 42px; padding: 0 16px; font-size: 13.5px; background: {{o.bg}}; border-color: {{o.bc}}; color: {{o.fg}}">{{o.label}}</div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- results -->
+  <section style="padding: 76px 80px 92px">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px">
+      <div>
+        <div class="eyebrow" style="color: var(--red)">{{summary}}</div>
+        <h2 class="serif" style="margin: 12px 0 0; font-size: 48px; line-height: 1.04; font-weight: 400">{{headline}}</h2>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div class="chip" onClick="{{reset}}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v6h6M20 20v-6h-6M20 9A8 8 0 006 5.3M4 15a8 8 0 0014 3.7"/></svg>
+          Clear filters
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 26px">
+      <sc-for list="{{results}}" as="t" hint-placeholder-count="6">
+        <div class="card" style="cursor: pointer">
+          <div class="scene {{t.cls}}" style="height: 250px; position: relative">
+            <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,14,0) 55%, rgba(20,17,14,.62) 100%)"></div>
+            <div style="position: absolute; left: 18px; bottom: 16px; color: #FBF9F6; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600">{{t.region}}</div>
+            <div style="position: absolute; top: 16px; right: 16px; height: 28px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(251,249,246,.92); color: #16130F; font-size: 12px; font-weight: 600">{{t.days}}</div>
+          </div>
+          <div style="padding: 22px 22px 24px">
+            <h3 class="serif" style="margin: 0; font-size: 25px; line-height: 1.14; font-weight: 400">{{t.name}}</h3>
+            <p style="margin: 10px 0 0; font-size: 14.5px; line-height: 1.62; color: #6E6862; font-weight: 300; min-height: 70px">{{t.body}}</p>
+            <div style="display: flex; gap: 7px; margin-top: 14px">
+              <sc-for list="{{t.tags}}" as="tg" hint-placeholder-count="2">
+                <div style="height: 26px; padding: 0 11px; display: inline-flex; align-items: center; border-radius: 999px; background: #F1EBE3; color: #6E6862; font-size: 12px; font-weight: 500">{{tg}}</div>
+              </sc-for>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #EDE7DE">
+              <div style="font-size: 13px; color: #8A8078">From</div>
+              <div style="display: flex; align-items: baseline; gap: 6px">
+                <div class="serif" style="font-size: 24px; color: var(--red)">{{t.price}}</div>
+                <div style="font-size: 12.5px; color: #8A8078">a day*</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display: {{emptyShow}}; padding: 70px 40px; text-align: center; border: 1px dashed #DED7CE; border-radius: 3px">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#C31B18" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3M9 11h4"/></svg>
+      <div class="serif" style="font-size: 28px; margin-top: 16px">Nothing matches all four filters</div>
+      <p style="margin: 10px auto 0; max-width: 460px; font-size: 15px; line-height: 1.65; color: #6E6862; font-weight: 300">
+        The tightest constraint is usually the season. Loosen that one first — most of these valleys are worth a different month rather than a different country.
+      </p>
+      <button class="btn btn-red" onClick="{{reset}}" style="margin-top: 24px">Clear the filters</button>
+    </div>
+  </section>
+
+  <section style="background: #F1EBE3; padding: 76px 80px 86px">
+    <div class="eyebrow" style="color: var(--red); margin-bottom: 26px">Or start somewhere else</div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px">
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Browse by region</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">Maps, landmarks and routes, one valley at a time</div>
+        </div>
+      </div>
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Work out the rail pass first</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">It often decides how far apart your stops should be</div>
+        </div>
+      </div>
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Beds for your group</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">Allocate dorms and private rooms by head count</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #16130F; color: #8A8078; padding: 34px 80px; display: flex; justify-content: space-between; font-size: 12.5px">
+    <div>© [YEAR] Grüezi Schweiz</div>
+    <div>Daily budgets are sample estimates for layout — replace with live pricing before launch.</div>
+  </footer>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "red": {"editor":"color","default":"#C31B18","options":["#C31B18","#D8232A","#8E110F","#16130F"],"section":"Brand"},
+  "$preview": {"width":1440,"height":2700}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { season: 'any', length: 'any', budget: 'any', style: 'any' };
+  }
+  renderVals() {
+    var self = this;
+    var red = this.props.red || '#C31B18';
+    var st = this.state;
+
+    var trips = [
+      { name: 'The Oberland from one bed', region: 'Bernese Oberland', cls: 'sky-mist t-emerald',
+        seasons: ['summer', 'autumn'], len: 'short', budget: 'low', styles: ['hiking', 'rail'],
+        days: '3 days', price: 'CHF 95', tags: ['Hiking', 'Rail'],
+        body: 'Lauterbrunnen as a base, the Schynige Platte ridge in the middle, and the Mürren shelf on the way out.' },
+      { name: 'Glacier line to the Engadin', region: 'Graubünden', cls: 'sky-clear t-glacier',
+        seasons: ['summer', 'winter'], len: 'mid', budget: 'mid', styles: ['rail'],
+        days: '6 days', price: 'CHF 140', tags: ['Rail', 'High valleys'],
+        body: 'Slow regional trains instead of the branded panoramic ones, ending in the thin air above St. Moritz.' },
+      { name: 'Zermatt without the price tag', region: 'Valais', cls: 'sky-dawn t-alpine',
+        seasons: ['summer'], len: 'short', budget: 'mid', styles: ['hiking'],
+        days: '4 days', price: 'CHF 130', tags: ['Hiking', 'Peaks'],
+        body: 'Sleep down the valley in Randa, walk the Five Lakes trail, and let the Gornergrat be the one splurge.' },
+      { name: 'Five cities, one week', region: 'Mittelland', cls: 'sky-dusk t-slate',
+        seasons: ['spring', 'autumn'], len: 'mid', budget: 'mid', styles: ['cities'],
+        days: '7 days', price: 'CHF 125', tags: ['Cities', 'Museums'],
+        body: 'Zürich, Bern, Lucerne, Basel and Geneva, with the river swimming and the old towns doing the work.' },
+      { name: 'Lakes and grotti in the south', region: 'Ticino', cls: 'sky-gold t-emerald',
+        seasons: ['spring', 'summer'], len: 'short', budget: 'low', styles: ['lakes', 'cities'],
+        days: '4 days', price: 'CHF 90', tags: ['Lakes', 'Food'],
+        body: 'Cross the Gotthard and everything changes — the language, the food, and how far a franc goes at dinner.' },
+      { name: 'Hut to hut on the Alpine Pass Route', region: 'Central Alps', cls: 'sky-storm t-slate',
+        seasons: ['summer'], len: 'long', budget: 'low', styles: ['hiking'],
+        days: '12 days', price: 'CHF 85', tags: ['Hiking', 'Huts'],
+        body: 'Sleep in SAC huts and mid-altitude hostels, resupply in valley Coops, and never book a hotel.' },
+      { name: 'Winter without a lift pass', region: 'Bernese Oberland', cls: 'sky-mist t-alpine',
+        seasons: ['winter'], len: 'short', budget: 'low', styles: ['hiking'],
+        days: '4 days', price: 'CHF 100', tags: ['Snowshoe', 'Quiet'],
+        body: 'Marked winter walking paths, sledge runs and empty valleys, for a fraction of what the ski week costs.' },
+      { name: 'Lake Geneva and the vineyards', region: 'Vaud', cls: 'sky-gold t-golden',
+        seasons: ['spring', 'autumn'], len: 'short', budget: 'mid', styles: ['lakes', 'cities'],
+        days: '3 days', price: 'CHF 120', tags: ['Lakes', 'Wine'],
+        body: 'Terraced vineyards above the water between Lausanne and Montreux, walkable end to end in a long day.' },
+      { name: 'The long way to Italy', region: 'Cross-country', cls: 'sky-dusk t-golden',
+        seasons: ['spring', 'summer', 'autumn'], len: 'long', budget: 'high', styles: ['rail', 'lakes'],
+        days: '9 days', price: 'CHF 175', tags: ['Rail', 'Slow travel'],
+        body: 'Basel to Lugano the slow way, over three passes, with lake steamers filling the gaps between trains.' }
+    ];
+
+    var groups = [
+      { key: 'season', label: 'Season', icon: 'M12 3v18M3 12h18M6 6l12 12M18 6L6 18',
+        opts: [['any','Any time'],['spring','Apr–May'],['summer','Jun–Sep'],['autumn','Oct–Nov'],['winter','Dec–Mar']] },
+      { key: 'length', label: 'How long', icon: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2',
+        opts: [['any','Any length'],['short','3–4 days'],['mid','5–7 days'],['long','8 days or more']] },
+      { key: 'budget', label: 'Budget', icon: 'M4 7h16v11H4zM4 11h16M8 14.5h.01',
+        opts: [['any','Any budget'],['low','Under CHF 110 a day'],['mid','CHF 110–160'],['high','Over CHF 160']] },
+      { key: 'style', label: 'Style', icon: 'M3 20l6-13 4 8 3-5 5 10z',
+        opts: [['any','Anything'],['hiking','Hiking'],['rail','Rail journeys'],['cities','Cities'],['lakes','Lakes']] }
+    ];
+
+    var groupVals = groups.map(function (g) {
+      return {
+        label: g.label, icon: g.icon,
+        opts: g.opts.map(function (o) {
+          var on = st[g.key] === o[0];
+          var patch = {};
+          patch[g.key] = o[0];
+          return {
+            label: o[1], cls: on ? 'chip-on' : '',
+            bg: on ? red : 'transparent', bc: on ? red : 'rgba(251,249,246,.34)', fg: on ? '#FFFFFF' : '#E4DAD3',
+            go: function () { self.setState(patch); }
+          };
+        })
+      };
+    });
+
+    var results = trips.filter(function (t) {
+      return (st.season === 'any' || t.seasons.indexOf(st.season) > -1)
+          && (st.length === 'any' || t.len === st.length)
+          && (st.budget === 'any' || t.budget === st.budget)
+          && (st.style === 'any' || t.styles.indexOf(st.style) > -1);
+    });
+
+    var applied = ['season','length','budget','style'].filter(function (k) { return st[k] !== 'any'; }).length;
+
+    return {
+      red: red,
+      groups: groupVals,
+      results: results,
+      emptyShow: results.length ? 'none' : 'block',
+      summary: applied ? applied + ' filter' + (applied > 1 ? 's' : '') + ' applied' : 'Everything we cover',
+      headline: results.length
+        ? results.length + (results.length === 1 ? ' trip fits' : ' trips fit')
+        : 'No trips fit',
+      reset: function () { self.setState({ season: 'any', length: 'any', budget: 'any', style: 'any' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

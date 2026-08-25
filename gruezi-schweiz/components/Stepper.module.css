@@ -1,0 +1,35 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.step {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ded7ce;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.step:hover:not(:disabled) {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.value {
+  font-size: 34px;
+  min-width: 48px;
+  text-align: center;
+}

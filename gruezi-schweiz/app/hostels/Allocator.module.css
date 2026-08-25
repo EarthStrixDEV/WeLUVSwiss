@@ -1,0 +1,591 @@
+/* Allocator — control card, room-mix diagram, sticky best-rate panel, hostel
+ * list and cross-links (spec §4.4 / §5.4). Breakpoints per spec §6: 1100 / 900 / 760. */
+
+.allocatorSection {
+  padding: 84px 0 88px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 36px;
+  align-items: start;
+}
+
+.title {
+  margin: 12px 0 30px;
+  font-size: 48px;
+  line-height: 1.04;
+  font-weight: 400;
+}
+
+/* Control card. */
+
+.controlCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 30px;
+}
+
+.stepperRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--faint-readable);
+}
+
+.stepperWrap {
+  margin-top: 14px;
+}
+
+.controlGroup {
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line-2);
+}
+
+.chipRow,
+.chipRowWrap {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.chipRowWrap {
+  flex-wrap: wrap;
+}
+
+/* Room-mix diagram. */
+
+.diagramCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 30px;
+  margin-top: 22px;
+}
+
+.diagramHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.diagramSummary {
+  font-size: 26px;
+  margin-top: 9px;
+}
+
+.spareNote {
+  font-size: 13.5px;
+  color: var(--muted);
+  font-weight: 300;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.roomList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.roomRow {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 110px;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 18px;
+  background: var(--paper);
+  border-radius: 3px;
+}
+
+.roomLabel {
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.roomDetail {
+  font-size: 12.5px;
+  color: var(--faint-readable);
+  margin-top: 4px;
+}
+
+.beds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.roomCost {
+  font-size: 20px;
+  text-align: right;
+}
+
+.tipRow {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.tipRow svg {
+  flex-shrink: 0;
+}
+
+/* Sticky best-rate panel. */
+
+.bestPanel {
+  background: var(--dark);
+  color: var(--on-dark);
+  border-radius: 3px;
+  padding: 32px 30px 34px;
+  position: sticky;
+  top: 20px;
+}
+
+.bestEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--on-dark-accent);
+}
+
+.bestName {
+  margin: 18px 0 0;
+  font-size: 34px;
+  line-height: 1.08;
+  font-weight: 400;
+  color: var(--on-dark);
+}
+
+.bestTown {
+  font-size: 13.5px;
+  color: var(--on-dark-4);
+  margin-top: 7px;
+}
+
+.bestTotalRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bestTotal {
+  font-size: 46px;
+  color: var(--on-dark);
+}
+
+.bestTotalLabel {
+  font-size: 14px;
+  color: var(--on-dark-4);
+}
+
+.bestPppn {
+  font-size: 14px;
+  color: var(--on-dark-3);
+  margin-top: 8px;
+}
+
+.bestWhy {
+  margin: 18px 0 0;
+  font-size: 14.5px;
+  line-height: 1.66;
+  color: var(--on-dark-3);
+  font-weight: 300;
+}
+
+.bestSwitch {
+  margin-top: 22px;
+  padding: 16px 18px;
+  background: rgba(251, 249, 246, 0.07);
+  border-radius: 3px;
+  font-size: 12.5px;
+  color: var(--on-dark-4);
+  line-height: 1.6;
+}
+
+.bestSwitchHighlight {
+  color: var(--on-dark);
+}
+
+.bestButton {
+  width: 100%;
+  margin-top: 26px;
+}
+
+.bestFootnote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  font-size: 12.5px;
+  /* --faint fails contrast below 18px (spec §6); on dark, --on-dark-4 reads. */
+  color: var(--on-dark-4);
+}
+
+.bestFootnote svg {
+  flex-shrink: 0;
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0 80px;
+}
+
+@media (max-width: 1100px) {
+  .rule {
+    margin: 0 40px;
+  }
+}
+
+@media (max-width: 760px) {
+  .rule {
+    margin: 0 20px;
+  }
+}
+
+/* Hostel list. */
+
+.listSection {
+  padding: 84px 0 90px;
+}
+
+.listHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+
+.listLead {
+  max-width: 400px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.table {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.tableHeadRow {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 180px 150px 150px;
+  background: var(--band);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tableHeadRow > div {
+  padding: 16px 22px;
+}
+
+.tableHeadRow > div:nth-child(2),
+.tableHeadRow > div:nth-child(3),
+.tableHeadRow > div:nth-child(4) {
+  padding: 16px 12px;
+}
+
+.tableHeadRow > div:last-child {
+  text-align: right;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 180px 150px 150px;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--line-2);
+  background: var(--white);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+
+.row:hover {
+  background: #fcfaf7;
+}
+
+.rowSelected,
+.rowSelected:hover {
+  background: var(--red-tint);
+}
+
+.cellHostel {
+  padding: 22px;
+}
+
+.hostelNameRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hostelName {
+  font-size: 21px;
+}
+
+.hostelTown {
+  font-size: 12.5px;
+  color: var(--faint-readable);
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-flex;
+  height: 22px;
+  padding: 0 10px;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.cellMix {
+  padding: 22px 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+  font-weight: 300;
+}
+
+.cellPppn {
+  padding: 22px 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--red);
+}
+
+.cellWalk {
+  padding: 22px 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+  font-weight: 300;
+}
+
+.cellTotal {
+  padding: 22px;
+  text-align: right;
+  font-size: 24px;
+}
+
+.cellLabelMobile {
+  display: none;
+}
+
+/* Cross-links — interpolated with state, built inline (spec §4.4), matching
+ * the shared .xlink look (white card, --line border, red icon, lift on hover). */
+
+.linksSection {
+  background: var(--band);
+  padding: 76px 0 86px;
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.xlink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.xlink:hover {
+  color: inherit;
+  border-color: var(--red);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px rgba(22, 19, 15, 0.1);
+}
+
+.xlinkStatic {
+  cursor: default;
+}
+
+.xlinkStatic:hover {
+  border-color: var(--line);
+  transform: none;
+  box-shadow: none;
+}
+
+.xlinkIcon {
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.xlinkTitle {
+  display: block;
+  font-weight: 600;
+  font-size: 15.5px;
+}
+
+.xlinkBody {
+  display: block;
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ---- Responsive (spec §6): 1100 / 900 / 760 ---- */
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bestPanel {
+    position: static;
+  }
+
+  .allocatorSection {
+    padding: 60px 0 70px;
+  }
+}
+
+@media (max-width: 900px) {
+  .title {
+    font-size: 38px;
+  }
+
+  .listHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .listLead {
+    max-width: none;
+  }
+
+  .stepperRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .linksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Comparison table restacks to cards, total + badge on top — no
+   * horizontal scroll (spec §6). */
+  .tableHeadRow {
+    display: none;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px 20px;
+    gap: 10px;
+  }
+
+  .cellHostel {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    order: -2;
+  }
+
+  .cellTotal {
+    order: -1;
+    padding: 0;
+    text-align: left;
+    font-size: 22px;
+  }
+
+  .cellMix,
+  .cellPppn,
+  .cellWalk {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-top: 1px solid var(--line-2);
+    padding-top: 10px;
+  }
+
+  .cellLabelMobile {
+    display: inline;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--faint-readable);
+  }
+}
+
+@media (max-width: 760px) {
+  .listSection {
+    padding: 50px 0 60px;
+  }
+
+  .diagramHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .spareNote {
+    text-align: left;
+  }
+
+  .roomRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .roomCost {
+    text-align: left;
+  }
+}

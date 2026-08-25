@@ -1,0 +1,149 @@
+/* Grüezi Schweiz — global tokens and base styles only (spec §2).
+ * Everything page- or component-scoped lives in CSS Modules.
+ *
+ * Breakpoints used across all modules (spec §6) — raw px, keep in sync:
+ *   ≤1100px  three-column grids collapse to two; page gutter 80 → 40
+ *   ≤900px   comparison tables restack to cards (never horizontal scroll)
+ *   ≤760px   single column; gutter 40 → 20; bottom tab bar replaces header nav
+ */
+
+:root {
+  /* Light palette (spec §2.1). Exact values — do not round to a grid. */
+  --paper: #FAF8F5;
+  --band: #F1EBE3;
+  --ink: #16130F;
+  --ink-2: #4A423B;
+  --muted: #6E6862;
+  /* --faint passes contrast for large text only (~3.6:1 on paper). Below 18px
+   * use --faint-readable instead (spec §6 contrast requirement). */
+  --faint: #8A8078;
+  --faint-readable: #6E6862;
+  --line: #E4DED5;
+  --line-2: #EDE7DE;
+  --white: #FFFFFF;
+
+  /* The single accent. Tweakable: swatch set #C31B18 / #D8232A / #8E110F / #16130F.
+   * Red is a precision accent, never a fill for large areas (spec §2.1). */
+  --red: #C31B18;
+  --red-hover: #8E110F;
+  --red-tint: #FCF4F3;
+
+  /* Dark sections (maps, sticky panels, footers). */
+  --dark: #16130F;
+  --dark-panel: #1F1B16;
+  --dark-border: #332C25;
+  --dark-line: #4A4036;
+  --on-dark: #FBF9F6;
+  --on-dark-2: #E4DAD3;
+  --on-dark-3: #D7CCC4;
+  --on-dark-4: #B7AEA5;
+  /* Eyebrows on dark — red is illegible there. */
+  --on-dark-accent: #E8877F;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 300 16.5px / 1.66 var(--font-karla), 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+.serif {
+  font-family: var(--font-bodoni), 'Didot', Georgia, serif;
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--red-hover);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Eyebrow (spec §2.2): 12px / 600 / .22em uppercase. Uses --faint-readable,
+ * not --faint, because 12px is below the large-text contrast threshold. */
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--faint-readable);
+}
+
+/* Content container (spec §2.3): the design canvas is 1440px, gutter 80px
+ * desktop → 40px → 20px. On wider screens the CONTENT centres with equal
+ * side margins while section backgrounds (heroes, dark maps, --band strips,
+ * footers) bleed full-width — put backgrounds on an outer element, .gutter
+ * on the inner one. */
+.gutter {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+@media (max-width: 1100px) {
+  .gutter {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 760px) {
+  .gutter {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Room for the fixed bottom tab bar. */
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Screen-reader-only text — live regions, control descriptions (spec §6). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus states are a build requirement the artboards never drew (spec §6). */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

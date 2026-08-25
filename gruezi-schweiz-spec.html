@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grüezi Schweiz — Build Specification</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{--paper:#FAF8F5;--band:#F1EBE3;--ink:#16130F;--ink-2:#4A423B;--muted:#6E6862;
+        --faint:#7A716A;--line:#E4DED5;--line-2:#EDE7DE;--white:#FFF;--red:#C31B18;--red-hover:#8E110F;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font:400 16px/1.68 Karla,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+  .page{max-width:940px;margin:0 auto;padding:0 32px 90px}
+  a{color:var(--red);text-decoration:none}a:hover{color:var(--red-hover);text-decoration:underline}
+  header.top{background:var(--ink);color:#FBF9F6;padding:52px 0 56px;margin-bottom:52px}
+  header.top .page{padding-bottom:0}
+  .mark{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+  .flag{width:28px;height:28px;background:var(--red);position:relative;border-radius:2px}
+  .flag i{position:absolute;background:#fff;display:block}
+  .flag i:first-child{left:50%;top:22%;width:3.2px;height:56%;margin-left:-1.6px}
+  .flag i:last-child{top:50%;left:22%;height:3.2px;width:56%;margin-top:-1.6px}
+  .wordmark{font-family:"Bodoni Moda","Didot",Georgia,serif;font-size:18px;letter-spacing:.04em}
+  .kicker{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#E8877F}
+  header.top h1{font-family:"Bodoni Moda","Didot",Georgia,serif;font-size:clamp(32px,5.4vw,52px);
+                line-height:1.04;font-weight:400;margin:14px 0 0}
+  header.top p{margin:16px 0 0;color:#D7CCC4;font-size:16px;font-weight:300;max-width:620px}
+  h1,h2,h3,h4{font-family:"Bodoni Moda","Didot",Georgia,serif;font-weight:400;letter-spacing:-.005em}
+  h2{font-size:34px;line-height:1.1;margin:60px 0 0;padding-top:26px;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:0;padding-top:0;margin-top:0}
+  h3{font-size:23px;line-height:1.16;margin:38px 0 0}
+  h4{font-size:18px;margin:28px 0 0}
+  p{margin:14px 0 0;color:var(--ink-2)}
+  strong{color:var(--ink);font-weight:600}
+  em{font-style:italic}
+  ul,ol{margin:14px 0 0;padding-left:22px;color:var(--ink-2)}
+  li{margin-top:7px}
+  li::marker{color:var(--red)}
+  hr{height:1px;background:var(--line);border:0;margin:48px 0 0}
+  code{font:500 13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+       background:var(--band);padding:2px 6px;border-radius:2px;color:#6B2B29}
+  pre{background:var(--ink);color:#E4DAD3;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:18px 0 0}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{margin:18px 0 0;padding:16px 20px;background:var(--band);border-radius:3px}
+  blockquote p{margin:0}
+  table{border-collapse:collapse;width:100%;background:var(--white);border:1px solid var(--line);font-size:14.5px;min-width:560px}
+  .tablewrap{overflow-x:auto;margin:20px 0 0;-webkit-overflow-scrolling:touch}
+  th{text-align:left;background:var(--band);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+     font-weight:600;color:var(--muted);padding:13px 16px;white-space:nowrap}
+  td{padding:14px 16px;border-top:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+  input[type=checkbox]{accent-color:var(--red);margin-right:8px}
+  li input[type=checkbox]{transform:translateY(1px)}
+  @media(max-width:640px){.page{padding:0 20px 70px}h2{font-size:27px}h3{font-size:20px}}
+  @media print{header.top{background:#fff;color:#000}header.top p{color:#333}.kicker{color:var(--red)}
+               pre{background:#f4f2ef;color:#000}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="page">
+    <div class="mark"><span class="flag"><i></i><i></i></span><span class="wordmark">Grüezi Schweiz</span></div>
+    <div class="kicker">Developer handoff · v1</div>
+    <h1>Build Specification</h1>
+    <p>Design tokens, page descriptions, interactive logic with acceptance criteria, data dependencies, open questions and phasing — lifted directly from the design canvas.</p>
+  </div>
+</header>
+<div class="page">
+<h1 id="gruezi-schweiz-build-specification">Grüezi Schweiz — Build Specification</h1>
+<p><strong>Product:</strong> An independent guide for backpackers and slow travellers in Switzerland.
+<strong>Document type:</strong> Developer handoff spec.
+<strong>Source of truth:</strong> the design canvas (6 artboards: <code>Main</code>, <code>Mobile</code>, <code>Region</code>, <code>RailPasses</code>, <code>Hostels</code>, <code>FindTrip</code>).
+<strong>Status:</strong> Design complete, sample data throughout. Not yet wired to any live source.</p>
+<hr />
+<h2 id="1-scope">1. Scope</h2>
+<h3 id="in-scope-for-v1">In scope for v1</h3>
+<p>Five surfaces, desktop at 1440px and mobile at 390px:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Artboard</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing page</td>
+<td><code>Main</code> / <code>Mobile</code></td>
+<td>Positioning, history, inspiration, souvenir catalog, national recommendation map</td>
+</tr>
+<tr>
+<td>Region page</td>
+<td><code>Region</code></td>
+<td>One region in depth — valley map, landmarks, bases, a worked route</td>
+</tr>
+<tr>
+<td>Rail Passes</td>
+<td><code>RailPasses</code></td>
+<td>Work out which way of paying for trains is cheapest</td>
+</tr>
+<tr>
+<td>Hostels</td>
+<td><code>Hostels</code></td>
+<td>Price beds for a real group size, not a headline dorm rate</td>
+</tr>
+<tr>
+<td>Find a Trip</td>
+<td><code>FindTrip</code></td>
+<td>Enter from a month and a budget rather than a place</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="explicitly-out-of-scope-for-v1">Explicitly out of scope for v1</h3>
+<ul>
+<li><strong>Booking and payment.</strong> Every primary CTA ("Hold these beds", "Where to buy it") is an outbound handoff to an operator or OTA. No cart, no checkout, no PCI surface.</li>
+<li><strong>User accounts.</strong> "Add to route" and "Save this route" persist to local storage only. Sync across devices is v2.</li>
+<li><strong>Free-text search.</strong> The Find a Trip search field is presentational in v1 — the filters do the work. Wiring the field means a query parser and a relevance model; that is its own project.</li>
+<li><strong>More than one region page.</strong> <code>Region</code> is built as Bernese Oberland. The template must be data-driven so the other three regions are content, not code — but only one is populated at launch.</li>
+<li><strong>Localisation.</strong> English only. Copy is written for it; do not add an i18n layer speculatively, but keep strings out of markup where it is free to do so.</li>
+</ul>
+<hr />
+<h2 id="2-design-system">2. Design system</h2>
+<p>Everything below is lifted from the artboards. Use these values exactly; do not round them to a 4/8px grid.</p>
+<h3 id="21-colour">2.1 Colour</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper</code></td>
+<td><code>#FAF8F5</code></td>
+<td>Default page background</td>
+</tr>
+<tr>
+<td><code>--band</code></td>
+<td><code>#F1EBE3</code></td>
+<td>Alternating section background, table headers</td>
+</tr>
+<tr>
+<td><code>--ink</code></td>
+<td><code>#16130F</code></td>
+<td>Body text, dark sections, footer</td>
+</tr>
+<tr>
+<td><code>--ink-2</code></td>
+<td><code>#4A423B</code></td>
+<td>Secondary body copy</td>
+</tr>
+<tr>
+<td><code>--muted</code></td>
+<td><code>#6E6862</code></td>
+<td>Supporting copy, table cells</td>
+</tr>
+<tr>
+<td><code>--faint</code></td>
+<td><code>#8A8078</code></td>
+<td>Eyebrows, captions, disabled</td>
+</tr>
+<tr>
+<td><code>--line</code></td>
+<td><code>#E4DED5</code></td>
+<td>Card and section borders</td>
+</tr>
+<tr>
+<td><code>--line-2</code></td>
+<td><code>#EDE7DE</code></td>
+<td>Inner dividers inside cards</td>
+</tr>
+<tr>
+<td><code>--white</code></td>
+<td><code>#FFFFFF</code></td>
+<td>Card fills, chip fills</td>
+</tr>
+<tr>
+<td><code>--red</code></td>
+<td><code>#C31B18</code></td>
+<td>The single accent. <strong>Tweakable.</strong></td>
+</tr>
+<tr>
+<td><code>--red-hover</code></td>
+<td><code>#8E110F</code></td>
+<td>Link hover</td>
+</tr>
+<tr>
+<td><code>--red-tint</code></td>
+<td><code>#FCF4F3</code></td>
+<td>Winning-row background in comparison tables</td>
+</tr>
+</tbody>
+</table></div>
+<p>Dark sections (<code>Main</code> map, <code>Region</code> map, all sticky recommendation panels, footers):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Value</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--dark</code></td>
+<td><code>#16130F</code></td>
+<td>Section background</td>
+</tr>
+<tr>
+<td><code>--dark-panel</code></td>
+<td><code>#1F1B16</code></td>
+<td>Map surface inside a dark section</td>
+</tr>
+<tr>
+<td><code>--dark-border</code></td>
+<td><code>#332C25</code></td>
+<td>Panel borders, dividers</td>
+</tr>
+<tr>
+<td><code>--dark-line</code></td>
+<td><code>#4A4036</code></td>
+<td>Map outlines, inactive chip borders</td>
+</tr>
+<tr>
+<td><code>--on-dark</code></td>
+<td><code>#FBF9F6</code></td>
+<td>Headings on dark</td>
+</tr>
+<tr>
+<td><code>--on-dark-2</code></td>
+<td><code>#E4DAD3</code></td>
+<td>Body on dark</td>
+</tr>
+<tr>
+<td><code>--on-dark-3</code></td>
+<td><code>#D7CCC4</code></td>
+<td>Labels on dark</td>
+</tr>
+<tr>
+<td><code>--on-dark-4</code></td>
+<td><code>#B7AEA5</code></td>
+<td>Supporting on dark</td>
+</tr>
+<tr>
+<td><code>--on-dark-accent</code></td>
+<td><code>#E8877F</code></td>
+<td>Eyebrows on dark (red is illegible there)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Red discipline.</strong> Red is a precision accent, never a fill for large areas. It appears on: primary buttons, active chips, selected map pins, eyebrows on light backgrounds, prices, the flag mark, and the "Best rate" badge. It never tints a section background.</p>
+<p><code>--red</code> is exposed as an editable tweak on every artboard with a swatch set of <code>#C31B18 / #D8232A / #8E110F / #16130F</code>. Implement it as a CSS custom property on the page root so the whole accent system moves with one value.</p>
+<h3 id="22-typography">2.2 Typography</h3>
+<p>Two families, both Google Fonts:</p>
+<ul>
+<li><strong>Display — Bodoni Moda</strong>, weights 400 and 500. Fallback stack: <code>"Didot", Georgia, serif</code>. Applied via a <code>.serif</code> class.</li>
+<li><strong>Body — Karla</strong>, weights 300, 400, 500, 600, 700. Fallback stack: <code>"Helvetica Neue", Arial, sans-serif</code>.</li>
+</ul>
+<p>Ramp as built:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Size / line-height / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hero h1, landing</td>
+<td>96px / 0.96 / 400</td>
+<td><code>letter-spacing: -0.015em</code></td>
+</tr>
+<tr>
+<td>Hero h1, inner pages</td>
+<td>62–78px / 1.00–1.02 / 400</td>
+<td>Region 78, Find a Trip 74, Rail 66, Hostels 62</td>
+</tr>
+<tr>
+<td>Section h2</td>
+<td>50–54px / 1.04 / 400</td>
+<td></td>
+</tr>
+<tr>
+<td>Card h3</td>
+<td>22–38px / 1.06–1.14 / 400</td>
+<td></td>
+</tr>
+<tr>
+<td>Lead paragraph</td>
+<td>17px / 1.72 / 300</td>
+<td></td>
+</tr>
+<tr>
+<td>Body</td>
+<td>15–16.5px / 1.62–1.70 / 300</td>
+<td></td>
+</tr>
+<tr>
+<td>UI label / table cell</td>
+<td>14–14.5px / 400–500</td>
+<td></td>
+</tr>
+<tr>
+<td>Eyebrow</td>
+<td>12px / 1 / 600, <code>letter-spacing: .22em</code>, uppercase</td>
+<td>On dark, use <code>--on-dark-accent</code></td>
+</tr>
+<tr>
+<td>Table header</td>
+<td>12px / 600, <code>letter-spacing: .10em</code>, uppercase</td>
+<td></td>
+</tr>
+<tr>
+<td>Caption / footnote</td>
+<td>12.5px / 300</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>text-wrap: pretty</code> is set on <code>body</code>. Keep it.</p>
+<h3 id="23-spacing-and-layout">2.3 Spacing and layout</h3>
+<ul>
+<li><strong>Desktop canvas:</strong> 1440px fixed. Page gutter <strong>80px</strong>.</li>
+<li><strong>Mobile canvas:</strong> 390px. Page gutter <strong>20px</strong>.</li>
+<li><strong>Section rhythm:</strong> 76–110px top padding, 86–110px bottom. Hero sections are absolutely sized (see §4).</li>
+<li><strong>Grid gaps:</strong> cards 20–26px, dense grids 18–22px, two-column page splits 36–56px.</li>
+<li>Every sibling group — chips, buttons, cards, nav items, table rows — is laid out with flex or grid plus <code>gap</code>. No margin-based spacing between siblings.</li>
+</ul>
+<h3 id="24-radii-shadows-motion">2.4 Radii, shadows, motion</h3>
+<ul>
+<li>Radii: <strong>2px</strong> buttons and image frames, <strong>3px</strong> cards and panels, <strong>999px</strong> chips and pills, <strong>50%</strong> step buttons and map dots.</li>
+<li>Card hover: <code>translateY(-5px)</code>, <code>0 22px 40px rgba(22,19,15,.12)</code>, border to <code>#D6CEC3</code>.</li>
+<li>3D card: rest <code>0 18px 44px rgba(22,19,15,.16)</code> → hover <code>rotateY(-9deg) rotateX(5deg) translateZ(26px)</code> with <code>0 40px 80px rgba(22,19,15,.30)</code>, over <code>.5s cubic-bezier(.2,.7,.3,1)</code>. The rotating element carries <code>transform-style: preserve-3d</code> and <strong>must not</strong> also carry <code>overflow: hidden</code> — that flattens the transform in every current browser. Clipping goes on a child.</li>
+<li>Carousel slide: <code>.75s cubic-bezier(.22,.72,.24,1)</code> on <code>transform</code>.</li>
+<li>Everything else: <code>.18s</code>–<code>.3s ease</code>.</li>
+</ul>
+<h3 id="25-components">2.5 Components</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Height</th>
+<th>Padding</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary button</td>
+<td>54px</td>
+<td>0 28px</td>
+<td><code>--red</code> fill, white text, 2px radius, <code>translateY(-2px)</code> on hover</td>
+</tr>
+<tr>
+<td>Compact button</td>
+<td>44–48px</td>
+<td>0 20px</td>
+<td>Header CTA, card actions</td>
+</tr>
+<tr>
+<td>Ghost button (on dark)</td>
+<td>48–54px</td>
+<td>0 20–28px</td>
+<td><code>inset 0 0 0 1px rgba(251,249,246,.55)</code></td>
+</tr>
+<tr>
+<td>Chip</td>
+<td>46px</td>
+<td>0 18px</td>
+<td>999px radius, 1px <code>--line</code> border. Active = <code>--red</code> fill, white text</td>
+</tr>
+<tr>
+<td>Compact chip</td>
+<td>42–44px</td>
+<td>0 14–16px</td>
+<td>Filter rows with many options</td>
+</tr>
+<tr>
+<td>Stepper button</td>
+<td>44 × 44px</td>
+<td>—</td>
+<td>Circular, 1px <code>--line</code>, hover to <code>--red</code></td>
+</tr>
+<tr>
+<td>Search field row</td>
+<td>62px button inside</td>
+<td>12px 12px 12px 28px</td>
+<td>Find a Trip only</td>
+</tr>
+<tr>
+<td>Map pin</td>
+<td>15px dot, 4px ring</td>
+<td>—</td>
+<td>See §5.2</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Icon rule.</strong> Every interactive control pairs an inline SVG icon with a text label. Icons are stroke-based on a 24px viewBox, <code>stroke-width</code> 1.6–1.8, <code>stroke-linecap</code> and <code>stroke-linejoin</code> round, rendered at 16–22px. <strong>No emoji, no icon fonts.</strong> Icons inherit <code>currentColor</code> so they recolour with their control.</p>
+<h3 id="26-photography">2.6 Photography</h3>
+<p>Every image in the canvas is a <strong>CSS-drawn placeholder</strong>: a layered scene of sky gradient, three ridge silhouettes with <code>clip-path</code>, a water band, a grain overlay and a vignette. Six sky palettes (<code>sky-dawn</code>, <code>sky-clear</code>, <code>sky-dusk</code>, <code>sky-mist</code>, <code>sky-storm</code>, <code>sky-gold</code>) crossed with six rock tones (<code>t-alpine</code>, <code>t-rose</code>, <code>t-emerald</code>, <code>t-glacier</code>, <code>t-slate</code>, <code>t-golden</code>).</p>
+<p><strong>Build requirement:</strong> replace every <code>.scene</code> block with licensed photography before launch. The class names are the specification for what each slot needs — <code>sky-storm t-glacier</code> means a dramatic overcast glacier shot, <code>sky-gold t-golden</code> a warm low-sun valley. Keep the same aspect ratios and the same gradient overlays on top of the real images; the text contrast depends on them.</p>
+<hr />
+<h2 id="3-data-requirements">3. Data requirements</h2>
+<p>The design runs on sample values throughout. Every number below must come from a real source before launch. Treat these as build dependencies, not content tasks.</p>
+<h3 id="31-rail-fares-and-passes-blocking">3.1 Rail fares and passes — <strong>blocking</strong></h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Needed for</th>
+<th>Candidate source</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point-to-point 2nd-class adult fare, station A → B</td>
+<td>Rail Passes comparison table</td>
+<td>SBB / Swiss public transport open data</td>
+<td>The design currently derives fare from a straight-line distance × 0.55 CHF/km. <strong>This is a placeholder formula and must be replaced.</strong></td>
+</tr>
+<tr>
+<td>Half Fare Card price</td>
+<td>Comparison row</td>
+<td>SBB tariff</td>
+<td>Currently CHF 120 / 1 month</td>
+</tr>
+<tr>
+<td>Saver Day Pass price</td>
+<td>Comparison row</td>
+<td>SBB</td>
+<td>Currently flat CHF 52/day. Real pricing varies by date and how far ahead you book — see open question Q1</td>
+</tr>
+<tr>
+<td>Swiss Travel Pass tiers</td>
+<td>Comparison row + recommendation</td>
+<td>Swiss Travel System</td>
+<td>Currently 3d/244, 4d/295, 6d/379, 8d/419, 15d/459</td>
+</tr>
+<tr>
+<td>Regional pass prices</td>
+<td>Pass cards, Region cross-link</td>
+<td>Regional operators</td>
+<td>Currently "from CHF 250 / 3 days"</td>
+</tr>
+<tr>
+<td>Station list</td>
+<td>Both selectors</td>
+<td>SBB station registry</td>
+<td>Currently 10 hard-coded stations</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rounding and display:</strong> all fares display as whole francs, <code>CHF n</code>, no decimals. Pass prices are quoted 2nd class, adult, no Half Fare unless stated.</p>
+<h3 id="32-hostel-inventory-blocking">3.2 Hostel inventory — <strong>blocking</strong></h3>
+<p>Per property: name, town, region id, walk-time to station, and <strong>three nightly rates</strong> — dorm bed (per person), twin room (per room), four-bed room (per room). Availability by date is required for the "Hold these beds" handoff but not for the pricing display.</p>
+<p>Candidate sources: Hostelling International, Hostelworld / Booking affiliate feeds, or direct agreements. Pick one before build — the allocator's room-type model (§5.4) assumes all three room types exist at every property, and a feed that only exposes dorm rates breaks it.</p>
+<h3 id="33-editorial-content-non-blocking">3.3 Editorial content — non-blocking</h3>
+<p>Landmarks, history timeline, souvenir catalog, trip cards, region copy and route days are <strong>editorial</strong>, hand-maintained in a CMS. They do not need an integration. Model them as structured content types, not free HTML, because every one of them drives a filter (see §5).</p>
+<h3 id="34-data-honesty-requirement">3.4 Data honesty requirement</h3>
+<p>Wherever a price is shown that the site does not control, the page must display its provenance and freshness. Every page currently carries a footer disclaimer; keep it, and add a "checked on" date once real data lands. Never present a derived or cached fare as a live quote.</p>
+<hr />
+<h2 id="4-page-specifications">4. Page specifications</h2>
+<h3 id="41-landing-page-main-1440-8900px">4.1 Landing page (<code>Main</code>, 1440 × ~8900px)</h3>
+<p>Sections in document order:</p>
+<ol>
+<li><strong>Hero banner</strong> — 860px. Full-bleed scene, dark gradient overlay top and bottom. Top bar carries the flag mark, wordmark, four icon+label nav items and the "Plan My Route" CTA. Headline at 96px over a 560px-wide lead paragraph, two CTAs, and a four-cell stat strip pinned to the bottom edge with a translucent dark backdrop and <code>backdrop-filter: blur(3px)</code>.</li>
+<li><strong>History</strong> — 12-column grid, 4/4/4. Left: section intro. Middle: an eight-entry timeline, each row a 96px year column beside title and body, separated by 1px top borders. Right: a scene image with a caption that names it as a placeholder.</li>
+<li><strong>3D cards</strong> — three cards, 620px tall, in a 3-column grid. See §2.4 for the transform. Badge and text block lift on <code>translateZ(50px)</code>.</li>
+<li><strong>Huge carousel</strong> — 780px, full-bleed. See §5.1.</li>
+<li><strong>Image gallery</strong> — 4-column grid, <code>grid-auto-rows: 236px</code>, nine tiles using span-based auto-placement that tiles exactly into 4 rows: <code>2×2, 1×1, 1×2, 1×1, 2×2, 1×1, 1×1, 1×1, 1×1</code>. Hover raises saturation and scales 1.02.</li>
+<li><strong>Catalog</strong> — <code>--band</code> background, three filter tabs, 4-column product grid. See §5.3.</li>
+<li><strong>Recommendation map</strong> — dark section. See §5.2.</li>
+<li><strong>About</strong> — 5/7 split; right side is a 3×3 fact grid built as a 1px-gap grid over a <code>--line</code> background so the gaps read as hairlines.</li>
+<li><strong>Footer</strong> — dark, wordmark and blurb beside three link columns, then a bottom bar.</li>
+</ol>
+<p><strong>Mobile (<code>Mobile</code>, 390 × ~3900px)</strong> carries the same sections in the same order, minus the carousel (replaced by a horizontally-scrolling card row) and with the gallery cut to six tiles in two columns. It adds a five-item bottom tab bar. Sections must not be dropped on mobile — the mobile artboard covers every landing-page section the desktop does.</p>
+<h3 id="42-region-page-region-1440-4700px">4.2 Region page (<code>Region</code>, 1440 × ~4700px)</h3>
+<ol>
+<li><strong>Header</strong> — shared, "Regions" active.</li>
+<li><strong>Hero</strong> — 560px, breadcrumb <code>Regions › Bernese Oberland</code>, 78px title, lead paragraph, four-cell key-fact strip on a translucent dark ground.</li>
+<li><strong>Mini map</strong> — dark section. Four type filters, a valley-scale SVG map with nine pins, and a 420px detail card to the right. See §5.2.</li>
+<li><strong>Recommended landmarks</strong> — 3-column grid of six ranked cards. Rank badge is a 34px red circle at top-left of the image. Each card carries effort and cost on one footer row. <strong>Ranking is editorial and explicitly not by fame</strong> — the copy says so, so the CMS needs a manual rank field, not a popularity sort.</li>
+<li><strong>Where to base yourself</strong> — 380px intro column beside a five-column comparison table (base, dorm from, access to trailheads, evening character, best for). Four rows.</li>
+<li><strong>Three days from one bed</strong> — <code>--band</code> section, three day cards, each with a numbered heading and three time-stamped steps plus a fares line.</li>
+<li><strong>Cross-links</strong> — three <code>.xlink</code> cards to Rail Passes, Hostels, Find a Trip.</li>
+<li><strong>Footer</strong> — slim variant, two lines.</li>
+</ol>
+<h3 id="43-rail-passes-railpasses-1440-3600px">4.3 Rail Passes (<code>RailPasses</code>, 1440 × ~3600px)</h3>
+<ol>
+<li><strong>Header</strong> — "Rail Passes" active.</li>
+<li><strong>Hero</strong> — 420px, left-weighted gradient, 66px headline.</li>
+<li><strong>Price comparison</strong> — the core of the page. Left column: a control card (from-station chips, to-station chips, moving-days stepper) above a four-row comparison table. Right column: a <strong>sticky</strong> dark recommendation panel (<code>position: sticky; top: 20px</code>). See §5.5.</li>
+<li><strong>Pass cards</strong> — four cards explaining what each product actually is, each with an icon, price line, body and a "who it's for" footer.</li>
+<li><strong>Passes by region</strong> — <code>--band</code> section, four region cards linking to region pages.</li>
+<li><strong>Cross-links</strong> — two cards.</li>
+<li><strong>Footer.</strong></li>
+</ol>
+<h3 id="44-hostels-hostels-1440-3200px">4.4 Hostels (<code>Hostels</code>, 1440 × ~3200px)</h3>
+<ol>
+<li><strong>Header</strong> — "Hostels" active.</li>
+<li><strong>Hero</strong> — 400px, 62px headline.</li>
+<li><strong>Allocator</strong> — left column holds a control card (people stepper, nights stepper, three sleeping-preference chips, four region chips) and below it the <strong>room-mix diagram</strong>. Right column is a sticky dark best-rate panel. See §5.4.</li>
+<li><strong>Hostel list</strong> — five-column table: hostel + town, room mix for the group, per-person-per-night, walk to station, total. Rows are clickable and drive the diagram above. Cheapest row carries the "Best rate" badge.</li>
+<li><strong>Cross-links</strong> — <code>--band</code> section, two cards, both label-interpolated with current state ("Back to {region}", "…for {nights} days of moving").</li>
+<li><strong>Footer.</strong></li>
+</ol>
+<h3 id="45-find-a-trip-findtrip-1440-2600px">4.5 Find a Trip (<code>FindTrip</code>, 1440 × ~2600px)</h3>
+<ol>
+<li><strong>Header</strong> — "Find a Trip" active.</li>
+<li><strong>Search hero</strong> — 800px, full-bleed scene. Centred 74px headline, then a 980px-wide search box: magnifier icon, a real <code>&lt;input&gt;</code> with a placeholder, and a 62px primary button. Below it a translucent filter panel with four labelled rows of chips.</li>
+<li><strong>Results</strong> — header line reporting how many filters are applied and how many trips fit, a "Clear filters" chip, then a 3-column card grid. Each card shows region eyebrow, days pill, title, body, style tags and a from-price.</li>
+<li><strong>Empty state</strong> — replaces the grid when nothing matches. Icon, heading, a sentence advising which filter to loosen first, and a clear-filters button.</li>
+<li><strong>Cross-links</strong> — three cards.</li>
+<li><strong>Footer.</strong></li>
+</ol>
+<hr />
+<h2 id="5-interactive-behaviour">5. Interactive behaviour</h2>
+<p>All state is client-side and ephemeral in v1. Nothing below requires a server round-trip.</p>
+<h3 id="51-carousel-landing">5.1 Carousel (landing)</h3>
+<ul>
+<li>State: <code>slide</code> (integer index).</li>
+<li>Track width is <code>slides.length × 100%</code>; each slide is <code>100 / slides.length %</code>; the track translates by <code>-(100 / slides.length) × slide %</code>. <strong>Do not hard-code these to the current slide count.</strong></li>
+<li>"Previous" and "Next valley" both wrap in their direction.</li>
+<li>Position indicators are <strong>labelled</strong>: a 3px bar above the region name, active bar <code>--red</code> and name <code>--on-dark</code>, inactive bar <code>rgba(251,249,246,.34)</code> and name <code>rgba(251,249,246,.55)</code>.</li>
+</ul>
+<p><strong>Acceptance</strong>
+- Given four slides, when the user clicks Previous on slide 1, then slide 4 shows.
+- Given the slide list grows to six, when the page renders, then the track and slide widths adapt with no code change.
+- Given any slide is active, then exactly one indicator is in the active state and its region name matches the visible slide.</p>
+<h3 id="52-maps-landing-region">5.2 Maps (landing + region)</h3>
+<p>Two instances of one pattern. The landing map is national (nine destinations, five traveller-type filters); the region map is valley-scale (nine places, four type filters).</p>
+<ul>
+<li>State: <code>filter</code> (string, <code>all</code> by default) and <code>selected</code> (index).</li>
+<li>A pin that matches the filter renders at full opacity; a pin that does not drops to <strong><code>opacity: .22</code></strong> and stays clickable.</li>
+<li>The selected pin inverts — red fill, white ring, <code>scale(1.35)</code>.</li>
+<li>Selecting any pin swaps the detail card beside the map: image, region/type eyebrow, name, body, and two to three icon+label fact rows.</li>
+<li>The legend must explain <strong>all</strong> rendered states, including the dimmed one.</li>
+<li>Pins are absolutely positioned by percentage inside a container whose <code>padding-bottom</code> matches the SVG's aspect ratio, so they track the map at any width.</li>
+</ul>
+<p><strong>Acceptance</strong>
+- Given the "Hiking" filter, when applied, then non-hiking pins dim but remain clickable and the chip shows the matching count.
+- Given a dimmed pin is clicked, then it becomes selected and the detail card updates.
+- Given any two pins, then their name labels do not overlap at the design width. (Label collision is a real risk — verify after any coordinate change.)</p>
+<h3 id="53-catalog-tabs-landing">5.3 Catalog tabs (landing)</h3>
+<ul>
+<li>State: <code>shop</code> ∈ <code>all | grocery | souvenir</code>.</li>
+<li>Filtering hides non-matching cards. The grid must not reflow into ragged rows — hide, do not reorder.</li>
+</ul>
+<h3 id="54-hostel-allocator-the-most-complex-logic-on-the-site">5.4 Hostel allocator — <strong>the most complex logic on the site</strong></h3>
+<p>State: <code>people</code> (1–12), <code>nights</code> (1–21), <code>mode</code> ∈ <code>cheap | mixed | private</code>, <code>region</code>, <code>hostel</code>.</p>
+<p>Allocation rules, per property, per night:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Rule</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cheap</code></td>
+<td>Everyone in the shared dorm</td>
+<td><code>people × dorm</code></td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td><code>ceil(people / 2)</code> twin rooms</td>
+<td><code>ceil(people / 2) × twin</code></td>
+</tr>
+<tr>
+<td><code>mixed</code></td>
+<td><code>floor(people / 4)</code> four-bed rooms; remainder of 1 → one dorm bed; remainder of 2–3 → <code>ceil(remainder / 2)</code> twins</td>
+<td>sum of the above</td>
+</tr>
+</tbody>
+</table></div>
+<p>Then: <code>total = perNight × nights</code>, and <code>perPersonPerNight = round(total / people / nights)</code>.</p>
+<p>The room-mix diagram renders one bed icon per <strong>bed of capacity</strong>, not per person. Beds that are paid for but unoccupied — the sixth bed when five people take three twins — render in <code>--line</code> grey, and a line beside the summary reports "n bed paid for and empty". This is the point of the whole feature: it makes the cost of an odd number visible.</p>
+<p>Bed icon colours by room type: dorm <code>--faint</code>, twin <code>--red</code>, four-bed <code>--ink</code>.</p>
+<p>The list re-prices and <strong>re-sorts ascending by total</strong> on every state change. The badge follows the cheapest row, not a fixed property.</p>
+<p><strong>Acceptance</strong>
+- Given 5 people in <code>mixed</code> mode, then the allocation is one four-bed room plus one twin, capacity 6, with one grey bed icon and an "1 bed paid for and empty" note.
+- Given 1 person in <code>private</code> mode, then one twin room is allocated and charged in full.
+- Given the people count changes, then every row's total, per-person-per-night and sort position update, and the best-rate badge moves if the cheapest property changed.
+- Given a property is selected in the list, then the diagram above shows that property's mix and the row is tinted <code>--red-tint</code>.
+- Given the group exceeds a property's real capacity, then — <strong>not yet designed.</strong> See Q3.</p>
+<h3 id="55-rail-pass-comparison">5.5 Rail pass comparison</h3>
+<p>State: <code>from</code>, <code>to</code> (station indices), <code>days</code> (1–15).</p>
+<p>Current placeholder maths, to be replaced per §3.1:
+<code>km = round(euclidean(from, to) × 1.25)</code>, <code>fare = max(8, round(km × 0.55))</code>.</p>
+<p>Option totals:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Up front</th>
+<th>Per journey</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point-to-point</td>
+<td>—</td>
+<td><code>fare</code></td>
+<td><code>days × fare</code></td>
+</tr>
+<tr>
+<td>Half Fare Card</td>
+<td>120</td>
+<td><code>round(fare / 2)</code></td>
+<td><code>120 + days × round(fare / 2)</code></td>
+</tr>
+<tr>
+<td>Saver Day Pass</td>
+<td>—</td>
+<td>52</td>
+<td><code>days × 52</code></td>
+</tr>
+<tr>
+<td>Swiss Travel Pass</td>
+<td>tier price</td>
+<td>included</td>
+<td>tier price</td>
+</tr>
+</tbody>
+</table></div>
+<p>Swiss Travel Pass tier = the first tier whose day count is ≥ <code>days</code>; above 15 days, the top tier.</p>
+<p>The cheapest option wins: its row gets <code>--red-tint</code> background, red total and a "Best rate" badge; the sticky panel restates it with a plain-language rationale and names the runner-up with the gap between them.</p>
+<p><strong>Acceptance</strong>
+- Given a short leg and 2 moving days, then point-to-point wins.
+- Given the same leg and 10 moving days, then the Swiss Travel Pass wins and the panel headline changes with it.
+- Given <code>days</code> is at 1, then the decrement control does not go below 1; likewise 15 at the top.
+- Given any state, then exactly one row carries the badge and the panel's named option matches it.</p>
+<h3 id="56-find-a-trip-filters">5.6 Find a Trip filters</h3>
+<ul>
+<li>Four independent groups: season, length, budget, style. Default <code>any</code> on each.</li>
+<li>Filters combine with <strong>AND</strong>. Season and style match against arrays on each trip; length and budget match a single value.</li>
+<li>The results header reports the applied filter count and the result count, both pluralised correctly.</li>
+<li>Zero results shows the empty state, which names the season filter as the one to loosen first.</li>
+<li>"Clear filters" resets all four groups in one action.</li>
+</ul>
+<hr />
+<h2 id="6-responsive-and-accessibility-requirements">6. Responsive and accessibility requirements</h2>
+<p>These are <strong>requirements the current artboards do not yet satisfy</strong> — they are the build's job.</p>
+<ul>
+<li><strong>Breakpoints.</strong> The canvas defines 1440 and 390. Build fluid between them: three-column grids collapse to two below ~1100px and one below ~760px; five-column tables become stacked cards below ~900px; the 80px gutter scales to 40px then 20px.</li>
+<li><strong>Comparison tables on mobile.</strong> The Rail Passes and Hostels tables cannot scroll horizontally — that is the least usable option for a price comparison. Each row becomes a card with the label/value pairs stacked, the total and badge at the top.</li>
+<li><strong>Touch targets.</strong> Every control in the design is ≥ 42px. Hold that line; the map pin's 15px dot needs a ≥ 44px invisible hit area around it.</li>
+<li><strong>Focus states.</strong> Not drawn. Every chip, button, stepper, pin, table row and card link needs a visible focus ring — use a 2px <code>--red</code> outline with a 2px offset, and never remove the default without a replacement.</li>
+<li><strong>Keyboard.</strong> The map is a list of buttons before it is a map; pins must be tabbable in a sensible order. The carousel needs arrow-key support when focused. The steppers are buttons, not spinners — but each stepper pair also needs an accessible label naming what it counts.</li>
+<li><strong>Screen readers.</strong> The <code>.scene</code> placeholders are decorative and take <code>aria-hidden</code>; real photography takes real alt text. The dimmed map state must be conveyed non-visually — <code>aria-pressed</code> on the filter chips and a live region announcing "n of 9 places match".</li>
+<li><strong>Contrast.</strong> <code>--faint</code> <code>#8A8078</code> on <code>--paper</code> is around 3.6:1 — it passes for large text only. Do not use it below 18px for anything a user must read; it is currently used at 12–13px for eyebrows and captions, which needs a darker value or a size bump before launch.</li>
+<li><strong>Motion.</strong> Honour <code>prefers-reduced-motion</code>: drop the 3D card transform, the carousel slide transition and the card hover lifts to instant state changes.</li>
+</ul>
+<hr />
+<h2 id="7-open-questions">7. Open questions</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Owner</th>
+<th>Blocking?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>Saver Day Pass pricing is dynamic by date and booking lead time. Do we quote a single indicative price, a range, or require a date input on the comparison? A date input changes the whole control layout.</td>
+<td>Product + Data</td>
+<td><strong>Yes</strong> — changes the Rail Passes design</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Which hostel data source? The allocator assumes dorm, twin and four-bed rates exist per property. If the chosen feed only exposes dorm rates, the <code>mixed</code> and <code>private</code> modes cannot ship.</td>
+<td>Engineering</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>What happens when a group exceeds a property's real capacity for the chosen room type — hide the property, show it as unavailable, or fall back to a mixed allocation? Not designed.</td>
+<td>Design</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Rail fares are per-journey, but a "moving day" may contain several journeys. Do we let users add multiple legs, or keep the single-leg simplification and say so?</td>
+<td>Product</td>
+<td>No — v1 can ship the simplification if labelled</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>Do "Add to route" and "Save this route" survive a browser clear? If they must, we need accounts, which is currently out of scope.</td>
+<td>Product</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>Photography: licensed stock, commissioned, or user-submitted? Affects the launch date more than any other open item.</td>
+<td>Product</td>
+<td>No, but long lead time</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>Is the region page template genuinely data-driven, or is Bernese Oberland special-cased? The map SVG in particular is hand-drawn for this valley.</td>
+<td>Engineering</td>
+<td>No for v1, yes before region two</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="8-suggested-phasing">8. Suggested phasing</h2>
+<p><strong>Phase 1 — the guide.</strong> Landing page, Region page, Find a Trip. All editorial content, no external data. Ships without resolving Q1–Q3.</p>
+<p><strong>Phase 2 — the calculators.</strong> Rail Passes and Hostels, once the data sources in §3 are settled. These are the pages that make the site useful rather than pretty, and they are also the two that can be wrong in ways that cost the reader money — hold them until the numbers are real.</p>
+<p><strong>Phase 3 — the rest of the regions.</strong> Once the Region template is proven data-driven, populate Valais, Graubünden and Ticino.</p>
+<hr />
+<h2 id="9-definition-of-done">9. Definition of done</h2>
+<ul>
+<li><input type="checkbox" disabled> Every <code>.scene</code> placeholder replaced with licensed photography, with alt text</li>
+<li><input type="checkbox" disabled> Every price traced to a named source, with a visible "checked on" date</li>
+<li><input type="checkbox" disabled> The placeholder fare formula removed, not merely tuned</li>
+<li><input type="checkbox" disabled> All bracketed placeholders filled: <code>[YEAR]</code>, <code>[YOUR EMAIL]</code>, <code>[YOUR INSTAGRAM]</code></li>
+<li><input type="checkbox" disabled> Focus states on every interactive element</li>
+<li><input type="checkbox" disabled> Comparison tables usable on a 390px screen without horizontal scroll</li>
+<li><input type="checkbox" disabled> <code>prefers-reduced-motion</code> honoured</li>
+<li><input type="checkbox" disabled> The allocator's edge cases from §5.4 verified, including the empty-bed case</li>
+<li><input type="checkbox" disabled> Every filter combination on Find a Trip reachable, including the zero-result state</li>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF8F5; color: #16130F;
+           font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+           -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+    a { color: #C31B18; text-decoration: none; }
+    a:hover { color: #8E110F; }
+    .serif { font-family: "Bodoni Moda", "Didot", Georgia, serif; }
+    .eyebrow { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: #8A8078; }
+    .rule { height: 1px; background: #E4DED5; border: 0; margin: 0; }
+
+    .scene { position: relative; overflow: hidden; background: #B9C6D2; }
+    .scene > i { position: absolute; display: block; }
+    .r1 { left: -6%; right: -6%; bottom: 26%; height: 62%;
+          clip-path: polygon(0% 100%,7% 54%,15% 76%,23% 34%,32% 64%,41% 26%,50% 58%,58% 18%,67% 52%,75% 30%,84% 62%,92% 40%,100% 66%,100% 100%); }
+    .r2 { left: -8%; right: -8%; bottom: 20%; height: 48%;
+          clip-path: polygon(0% 100%,9% 46%,18% 70%,27% 30%,37% 62%,46% 22%,56% 56%,66% 28%,76% 60%,86% 36%,95% 64%,100% 48%,100% 100%); }
+    .r3 { left: -4%; right: -4%; bottom: 14%; height: 32%;
+          clip-path: polygon(0% 100%,11% 40%,22% 66%,33% 28%,45% 58%,57% 24%,69% 54%,80% 32%,91% 60%,100% 44%,100% 100%); }
+    .w  { left: 0; right: 0; bottom: 0; height: 16%; }
+    .gr { inset: 0; opacity: .16; mix-blend-mode: multiply;
+          background-image: repeating-linear-gradient(115deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px),
+                            repeating-linear-gradient(28deg, rgba(0,0,0,.06) 0 1px, transparent 1px 4px); }
+    .vg { inset: 0; background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(20,17,14,.34) 100%); }
+    .sky-dawn  { background: linear-gradient(180deg,#F0D3C0 0%,#E7B9A5 26%,#CFC3C0 58%,#AEB6BE 100%); }
+    .sky-clear { background: linear-gradient(180deg,#6F9CC0 0%,#A7C6DC 48%,#DCE8EF 100%); }
+    .sky-dusk  { background: linear-gradient(180deg,#33415A 0%,#6C6379 40%,#C08D72 76%,#E4BC95 100%); }
+    .sky-mist  { background: linear-gradient(180deg,#C6CDD2 0%,#DDE2E4 52%,#EFF1F1 100%); }
+    .sky-storm { background: linear-gradient(180deg,#3D4A55 0%,#5E6B75 46%,#8D969C 100%); }
+    .sky-gold  { background: linear-gradient(180deg,#8FA9B8 0%,#D8C29C 55%,#F0DDBB 100%); }
+    .t-alpine .r1 { background: linear-gradient(180deg,#FFFFFF 0 13%,#CBD6E0 13% 36%,#8B98A6 36% 100%); opacity: .72; }
+    .t-alpine .r2 { background: linear-gradient(180deg,#F4F7FA 0 10%,#9FADBB 10% 40%,#63707E 40% 100%); opacity: .88; }
+    .t-alpine .r3 { background: linear-gradient(180deg,#DCE3EA 0 7%,#5A6774 7% 44%,#39434E 44% 100%); }
+    .t-alpine .w  { background: linear-gradient(180deg,#587E97,#31536B); }
+    .t-emerald .r1 { background: linear-gradient(180deg,#FFFFFF 0 12%,#BFD1C6 12% 34%,#7E9482 34% 100%); opacity: .7; }
+    .t-emerald .r2 { background: linear-gradient(180deg,#EAF2EB 0 9%,#8AA391 9% 40%,#4F6B57 40% 100%); opacity: .9; }
+    .t-emerald .r3 { background: linear-gradient(180deg,#CFE0D3 0 6%,#3F5A47 6% 44%,#26382C 44% 100%); }
+    .t-emerald .w  { background: linear-gradient(180deg,#3F7C79,#1F4E51); }
+    .t-glacier .r1 { background: linear-gradient(180deg,#FFFFFF 0 16%,#D3E6EC 16% 40%,#8FB3BE 40% 100%); opacity: .75; }
+    .t-glacier .r2 { background: linear-gradient(180deg,#F2FAFC 0 13%,#A6C7D1 13% 42%,#5F868F 42% 100%); opacity: .9; }
+    .t-glacier .r3 { background: linear-gradient(180deg,#DDEFF3 0 9%,#4E7079 9% 46%,#2E4850 46% 100%); }
+    .t-glacier .w  { background: linear-gradient(180deg,#5FA0AA,#2E6570); }
+    .t-slate .r1 { background: linear-gradient(180deg,#F3F5F7 0 11%,#B4BCC3 11% 34%,#78828B 34% 100%); opacity: .62; }
+    .t-slate .r2 { background: linear-gradient(180deg,#E4E8EB 0 9%,#8B949C 9% 40%,#4C555D 40% 100%); opacity: .86; }
+    .t-slate .r3 { background: linear-gradient(180deg,#C9D0D6 0 6%,#39424A 6% 44%,#1F262C 44% 100%); }
+    .t-slate .w  { background: linear-gradient(180deg,#4B6272,#232F39); }
+    .t-golden .r1 { background: linear-gradient(180deg,#FFF7E6 0 13%,#E4D3B4 13% 36%,#AD9C7E 36% 100%); opacity: .7; }
+    .t-golden .r2 { background: linear-gradient(180deg,#F7E9CE 0 10%,#C0A87F 10% 40%,#7E6A4B 40% 100%); opacity: .9; }
+    .t-golden .r3 { background: linear-gradient(180deg,#E7D6B4 0 7%,#5F4F36 7% 44%,#362C1E 44% 100%); }
+    .t-golden .w  { background: linear-gradient(180deg,#7E7A52,#443F2A); }
+
+    .chip { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px;
+            border-radius: 999px; border: 1px solid #DED7CE; background: #FFFFFF; color: #4A423B;
+            font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+            transition: background .18s ease, color .18s ease, border-color .18s ease; }
+    .chip:not(.chip-on):hover { border-color: var(--red); color: var(--red); }
+    .chip-on { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+    .chip svg { width: 18px; height: 18px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 28px;
+           border-radius: 2px; border: 0; cursor: pointer; font: 600 15px/1 Karla, Arial, sans-serif;
+           transition: transform .18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-red { background: var(--red); color: #FFFFFF; }
+    .btn-ink { background: #16130F; color: #FBF9F6; }
+    .btn-ghost { background: transparent; color: #FBF9F6; box-shadow: inset 0 0 0 1px rgba(251,249,246,.55); }
+    .nav-i { display: inline-flex; align-items: center; gap: 7px; height: 44px; color: #FBF9F6;
+             font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+             border-bottom: 2px solid transparent; transition: border-color .2s ease; }
+    .nav-i:hover { border-bottom-color: var(--red); }
+    .nav-i svg { width: 17px; height: 17px; }
+    .nav-on { border-bottom-color: var(--red); }
+
+    .xlink { display: flex; align-items: center; gap: 14px; padding: 22px 24px; background: #FFFFFF;
+             border: 1px solid #E4DED5; border-radius: 3px; cursor: pointer;
+             transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .xlink:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 18px 34px rgba(22,19,15,.10); }
+    .xlink svg { width: 22px; height: 22px; color: #C31B18; flex-shrink: 0; }
+
+    .pin { position: absolute; transform: translate(-50%,-100%); cursor: pointer; transition: opacity .25s ease; }
+    .pin .dot { width: 15px; height: 15px; border-radius: 50%; background: #FFFFFF;
+                border: 4px solid var(--red); box-shadow: 0 3px 10px rgba(22,19,15,.35); transition: transform .2s ease; }
+    .pin:hover .dot { transform: scale(1.28); }
+    .pin .lab { position: absolute; left: 50%; top: -26px; transform: translateX(-50%); white-space: nowrap;
+                font: 600 11.5px/1 Karla, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;
+                color: #16130F; background: rgba(255,255,255,.9); padding: 4px 8px; border-radius: 2px; }
+    .pin-on .dot { background: var(--red); border-color: #FFFFFF; transform: scale(1.35); }
+    .pin-off { opacity: .22; }
+
+    .row { transition: background .2s ease; }
+    .row:hover { background: #FCFAF7; }
+    .step { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #DED7CE; background: #FFFFFF;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; color: #16130F;
+            transition: border-color .18s ease, color .18s ease; }
+    .step:hover { border-color: var(--red); color: var(--red); }
+    .card { background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px rgba(22,19,15,.12); border-color: #D6CEC3; }
+  </style>
+</helmet>
+
+<div style="--red: {{red}}; width: 1440px; margin: 0 auto; background: #FAF8F5; overflow: hidden">
+  <header style="background: #16130F; display: flex; align-items: center; justify-content: space-between; padding: 0 80px; height: 84px">
+      <div style="display: flex; align-items: center; gap: 13px">
+        <div style="width: 30px; height: 30px; background: var(--red); position: relative; border-radius: 2px">
+          <div style="position: absolute; left: 50%; top: 22%; width: 3.5px; height: 56%; margin-left: -1.75px; background: #FFFFFF"></div>
+          <div style="position: absolute; top: 50%; left: 22%; height: 3.5px; width: 56%; margin-top: -1.75px; background: #FFFFFF"></div>
+        </div>
+        <div class="serif" style="color: #FBF9F6; font-size: 19px; letter-spacing: .04em">Grüezi Schweiz</div>
+      </div>
+      <nav style="display: flex; align-items: center; gap: 30px">
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>Regions</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>Rail Passes</div>
+        <div class="nav-i nav-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>Hostels</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3"/></svg>Find a Trip</div>
+        <button class="btn btn-red" style="height: 44px; padding: 0 20px; font-size: 14px">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          Plan My Route
+        </button>
+      </nav>
+  </header>
+
+  <section style="position: relative; height: 400px; overflow: hidden">
+    <div class="scene sky-gold t-golden" style="position: absolute; inset: 0">
+      <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+    </div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,17,14,.80) 0%, rgba(20,17,14,.32) 60%, rgba(20,17,14,.12) 100%)"></div>
+    <div style="position: absolute; left: 80px; bottom: 50px; max-width: 680px">
+      <div class="eyebrow" style="color: #F1DED4">Hostels</div>
+      <h1 class="serif" style="margin: 14px 0 0; color: #FBF9F6; font-size: 62px; line-height: 1.02; font-weight: 400">
+        Beds, split the way your group actually sleeps
+      </h1>
+      <p style="margin: 16px 0 0; color: #E4DAD3; font-size: 16.5px; line-height: 1.65; font-weight: 300">
+        Tell it how many of you there are and how much privacy you want. It works out the cheapest room mix at each hostel, not just the headline dorm rate.
+      </p>
+    </div>
+  </section>
+
+  <!-- allocator -->
+  <section style="padding: 84px 80px 88px">
+    <div style="display: grid; grid-template-columns: minmax(0,1fr) 420px; gap: 36px; align-items: start">
+      <div>
+        <div class="eyebrow" style="color: var(--red)">Your group</div>
+        <h2 class="serif" style="margin: 12px 0 30px; font-size: 48px; line-height: 1.04; font-weight: 400">Allocate the beds</h2>
+
+        <div style="background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; padding: 30px">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 30px">
+            <div>
+              <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">People</div>
+              <div style="display: flex; align-items: center; gap: 16px; margin-top: 14px">
+                <div class="step" onClick="{{lessPeople}}">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </div>
+                <div class="serif" style="font-size: 34px; min-width: 44px; text-align: center">{{people}}</div>
+                <div class="step" onClick="{{morePeople}}">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">Nights</div>
+              <div style="display: flex; align-items: center; gap: 16px; margin-top: 14px">
+                <div class="step" onClick="{{lessNights}}">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </div>
+                <div class="serif" style="font-size: 34px; min-width: 44px; text-align: center">{{nights}}</div>
+                <div class="step" onClick="{{moreNights}}">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; padding-top: 26px; border-top: 1px solid #EDE7DE">
+            <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">How you want to sleep</div>
+            <div style="display: flex; gap: 10px; margin-top: 14px">
+              <sc-for list="{{modes}}" as="m" hint-placeholder-count="3">
+                <div class="chip {{m.cls}}" onClick="{{m.go}}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{m.icon}}"/></svg>
+                  {{m.label}}
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; padding-top: 26px; border-top: 1px solid #EDE7DE">
+            <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">Region</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px">
+              <sc-for list="{{regions}}" as="r" hint-placeholder-count="4">
+                <div class="chip {{r.cls}}" onClick="{{r.go}}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+                  {{r.name}}
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <!-- allocation diagram -->
+        <div style="background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; padding: 30px; margin-top: 22px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between">
+            <div>
+              <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">Room mix at {{alloc.hostel}}</div>
+              <div class="serif" style="font-size: 26px; margin-top: 9px">{{alloc.summary}}</div>
+            </div>
+            <div style="font-size: 13.5px; color: #6E6862; font-weight: 300">{{alloc.spare}}</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px">
+            <sc-for list="{{alloc.rooms}}" as="rm" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: 190px minmax(0,1fr) 110px; gap: 18px; align-items: center; padding: 16px 18px; background: #FAF8F5; border-radius: 3px">
+                <div>
+                  <div style="font-weight: 600; font-size: 14.5px">{{rm.label}}</div>
+                  <div style="font-size: 12.5px; color: #8A8078; margin-top: 4px">{{rm.detail}}</div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 7px">
+                  <sc-for list="{{rm.beds}}" as="bd" hint-placeholder-count="4">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="{{bd.c}}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-7a2 2 0 012-2h14v9M3 14h18M7 9V6h5v3"/></svg>
+                  </sc-for>
+                </div>
+                <div class="serif" style="font-size: 20px; text-align: right">{{rm.cost}}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid #EDE7DE; display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #6E6862; font-weight: 300">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#C31B18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/></svg>
+            {{alloc.tip}}
+          </div>
+        </div>
+      </div>
+
+      <!-- summary -->
+      <div style="background: #16130F; color: #FBF9F6; border-radius: 3px; padding: 32px 30px 34px; position: sticky; top: 20px">
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #E8877F">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.4 9.4l6.1-.8z"/></svg>
+          Best rate for {{people}}
+        </div>
+        <h3 class="serif" style="margin: 18px 0 0; font-size: 34px; line-height: 1.08; font-weight: 400; color: #FBF9F6">{{best.name}}</h3>
+        <div style="font-size: 13.5px; color: #B7AEA5; margin-top: 7px">{{best.town}}</div>
+        <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 20px">
+          <div class="serif" style="font-size: 46px; color: #FBF9F6">{{best.total}}</div>
+          <div style="font-size: 14px; color: #B7AEA5">total</div>
+        </div>
+        <div style="font-size: 14px; color: #D7CCC4; margin-top: 8px">{{best.pppn}} per person per night</div>
+        <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 1.66; color: #D7CCC4; font-weight: 300">{{best.why}}</p>
+        <div style="margin-top: 22px; padding: 16px 18px; background: rgba(251,249,246,.07); border-radius: 3px; font-size: 12.5px; color: #B7AEA5; line-height: 1.6">
+          Switching to <span style="color: #FBF9F6">{{other.label}}</span> would cost {{other.delta}}.
+        </div>
+        <button class="btn btn-red" style="width: 100%; margin-top: 26px">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14v14H5zM5 9h14M9 3v4M15 3v4"/></svg>
+          Hold these beds
+        </button>
+        <div style="display: flex; align-items: center; gap: 9px; margin-top: 18px; font-size: 12.5px; color: #8A8078">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>
+          <span>Every hostel here is under 15 minutes from a station.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" style="margin: 0 80px">
+
+  <!-- hostel list -->
+  <section style="padding: 84px 80px 90px">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px">
+      <div>
+        <div class="eyebrow" style="color: var(--red)">Priced for your group</div>
+        <h2 class="serif" style="margin: 12px 0 0; font-size: 48px; line-height: 1.04; font-weight: 400">{{count}} hostels in {{regionName}}</h2>
+      </div>
+      <p style="max-width: 400px; margin: 0; font-size: 15px; line-height: 1.7; color: #6E6862; font-weight: 300">
+        Totals below already include the room mix above, so the cheapest dorm rate is not always the cheapest stay.
+      </p>
+    </div>
+    <div style="border: 1px solid #E4DED5; border-radius: 3px; overflow: hidden; background: #FFFFFF">
+      <div style="display: grid; grid-template-columns: 300px minmax(0,1fr) 180px 150px 150px; background: #F1EBE3; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: #6E6862">
+        <div style="padding: 16px 22px">Hostel</div>
+        <div style="padding: 16px 12px">Room mix for {{people}}</div>
+        <div style="padding: 16px 12px">Per person / night</div>
+        <div style="padding: 16px 12px">Walk to station</div>
+        <div style="padding: 16px 22px; text-align: right">Total</div>
+      </div>
+      <sc-for list="{{list}}" as="h" hint-placeholder-count="5">
+        <div class="row" onClick="{{h.go}}" style="display: grid; grid-template-columns: 300px minmax(0,1fr) 180px 150px 150px; border-top: 1px solid #EDE7DE; align-items: center; cursor: pointer; background: {{h.bg}}">
+          <div style="padding: 22px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <div class="serif" style="font-size: 21px">{{h.name}}</div>
+              <div style="display: {{h.badge}}; height: 22px; padding: 0 10px; align-items: center; border-radius: 999px; background: var(--red); color: #FFFFFF; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600">Best rate</div>
+            </div>
+            <div style="font-size: 12.5px; color: #8A8078; margin-top: 4px">{{h.town}}</div>
+          </div>
+          <div style="padding: 22px 12px; font-size: 14px; color: #4A423B; font-weight: 300">{{h.mix}}</div>
+          <div style="padding: 22px 12px; font-size: 15px; font-weight: 600; color: var(--red)">{{h.pppn}}</div>
+          <div style="padding: 22px 12px; font-size: 14px; color: #4A423B; font-weight: 300">{{h.walk}}</div>
+          <div class="serif" style="padding: 22px; text-align: right; font-size: 24px">{{h.total}}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 16px; font-size: 12.5px; color: #8A8078; font-weight: 300">
+      * Sample nightly rates for layout. Real prices move with the season and fill up months ahead in July and August.
+    </div>
+  </section>
+
+  <section style="background: #F1EBE3; padding: 76px 80px 86px">
+    <div class="eyebrow" style="color: var(--red); margin-bottom: 26px">Next</div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px">
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Back to {{regionName}}</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">The map, the landmarks and a three-day route from one bed</div>
+        </div>
+      </div>
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Rail passes for these nights</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">Compare fares against the pass for {{nights}} days of moving</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #16130F; color: #8A8078; padding: 34px 80px; display: flex; justify-content: space-between; font-size: 12.5px">
+    <div>© [YEAR] Grüezi Schweiz</div>
+    <div>Rates are sample figures for layout — replace with live availability before launch.</div>
+  </footer>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "red": {"editor":"color","default":"#C31B18","options":["#C31B18","#D8232A","#8E110F","#16130F"],"section":"Brand"},
+  "$preview": {"width":1440,"height":3300}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { people: 4, nights: 3, mode: 'cheap', region: 0, hostel: 0 };
+  }
+  renderVals() {
+    var self = this;
+    var red = this.props.red || '#C31B18';
+    var people = this.state.people, nights = this.state.nights, mode = this.state.mode;
+
+    function chf(n) { return 'CHF ' + n; }
+
+    var regionDefs = [
+      { name: 'Bernese Oberland' }, { name: 'Valais' }, { name: 'Graubünden' }, { name: 'Ticino' }
+    ];
+    var regionName = regionDefs[this.state.region].name;
+
+    // sample nightly rates per person / per room
+    var hostelData = [
+      { name: 'Valley Hostel', town: 'Lauterbrunnen', region: 0, dorm: 39, twin: 108, quad: 176, walk: '4 min' },
+      { name: 'Alpenblick Backpackers', town: 'Interlaken', region: 0, dorm: 34, twin: 96, quad: 164, walk: '9 min' },
+      { name: 'Eiger Lodge', town: 'Grindelwald', region: 0, dorm: 46, twin: 124, quad: 200, walk: '6 min' },
+      { name: 'Chalet Bergsicht', town: 'Mürren', region: 0, dorm: 52, twin: 138, quad: 224, walk: 'Cable car' },
+      { name: 'Aareblick Beds', town: 'Thun', region: 0, dorm: 31, twin: 88, quad: 148, walk: '12 min' },
+      { name: 'Matterhorn Bunk', town: 'Randa', region: 1, dorm: 36, twin: 98, quad: 168, walk: '3 min' },
+      { name: 'Rhone Valley Hostel', town: 'Sion', region: 1, dorm: 30, twin: 84, quad: 144, walk: '7 min' },
+      { name: 'Engadin Base', town: 'Pontresina', region: 2, dorm: 42, twin: 116, quad: 192, walk: '10 min' },
+      { name: 'Chur Old Town Beds', town: 'Chur', region: 2, dorm: 33, twin: 92, quad: 156, walk: '5 min' },
+      { name: 'Grotto Hostel', town: 'Lugano', region: 3, dorm: 35, twin: 94, quad: 160, walk: '11 min' },
+      { name: 'Lakeside Bunk', town: 'Locarno', region: 3, dorm: 32, twin: 90, quad: 152, walk: '8 min' }
+    ];
+
+    var modeDefs = [
+      { id: 'cheap', label: 'Cheapest beds', icon: 'M4 7h16v11H4zM4 11h16' },
+      { id: 'mixed', label: 'Share a room', icon: 'M3 18v-7a2 2 0 012-2h14v9M3 14h18M7 9V6h5v3' },
+      { id: 'private', label: 'Privacy', icon: 'M7 11V8a5 5 0 0110 0v3M5 11h14v9H5z' }
+    ];
+
+    // allocate people into rooms for one hostel, one night
+    function allocate(h, m) {
+      m = m || mode;
+      var rooms = [];
+      if (m === 'cheap') {
+        rooms.push({ kind: 'dorm', n: people, cap: people, cost: people * h.dorm,
+                     label: 'Shared dorm', detail: people + ' beds in a mixed dorm' });
+      } else if (m === 'private') {
+        var twins = Math.ceil(people / 2);
+        rooms.push({ kind: 'twin', n: people, cap: twins * 2, cost: twins * h.twin,
+                     label: twins + (twins > 1 ? ' twin rooms' : ' twin room'), detail: 'Two beds, own door' });
+      } else {
+        var quads = Math.floor(people / 4);
+        var rest = people - quads * 4;
+        if (quads) rooms.push({ kind: 'quad', n: quads * 4, cap: quads * 4, cost: quads * h.quad,
+                                label: quads + (quads > 1 ? ' four-bed rooms' : ' four-bed room'), detail: 'Private, just your group' });
+        if (rest === 1) rooms.push({ kind: 'dorm', n: 1, cap: 1, cost: h.dorm, label: '1 dorm bed', detail: 'The odd one out' });
+        else if (rest > 1) rooms.push({ kind: 'twin', n: rest, cap: Math.ceil(rest / 2) * 2, cost: Math.ceil(rest / 2) * h.twin,
+                                label: Math.ceil(rest / 2) + ' twin room' + (rest > 2 ? 's' : ''), detail: 'For the remainder' });
+      }
+      var per = rooms.reduce(function (t, r) { return t + r.cost; }, 0);
+      return { rooms: rooms, perNight: per, total: per * nights };
+    }
+
+    var pool = hostelData.filter(function (h) { return h.region === self.state.region; });
+    var priced = pool.map(function (h) {
+      var a = allocate(h);
+      return { h: h, a: a };
+    }).sort(function (x, y) { return x.a.total - y.a.total; });
+
+    var cheapest = priced[0];
+    var selName = (priced[self.state.hostel] || cheapest).h.name;
+    var selected = priced[self.state.hostel] || cheapest;
+
+    var bedColors = { dorm: '#8A8078', twin: '#C31B18', quad: '#16130F' };
+    var allocRooms = selected.a.rooms.map(function (r) {
+      var beds = [];
+      for (var i = 0; i < r.cap; i++) beds.push({ c: i < r.n ? (bedColors[r.kind] || '#16130F') : '#DED7CE' });
+      return { label: r.label, detail: r.detail, beds: beds, cost: chf(r.cost) + ' / night' };
+    });
+
+    var capacity = selected.a.rooms.reduce(function (t, r) { return t + r.cap; }, 0);
+    var spare = capacity > people ? (capacity - people) + ' bed paid for and empty' : 'No wasted beds';
+
+    var tips = {
+      cheap: 'Dorms are the cheapest way to sleep here, but bring earplugs and expect a 10am checkout.',
+      mixed: 'Four-bed rooms are the sweet spot for groups — near dorm prices with your own door.',
+      private: 'Twin rooms cost roughly three dorm beds. Worth it past a week; rarely worth it for two nights.'
+    };
+
+    var otherMode = mode === 'cheap' ? 'mixed' : 'cheap';
+    var otherTotal = allocate(cheapest.h, otherMode).total;
+    var delta = otherTotal - cheapest.a.total;
+    var otherLabel = otherMode === 'cheap' ? 'cheapest beds' : 'shared rooms';
+
+    var list = priced.map(function (p, i) {
+      var win = i === 0;
+      var mix = p.a.rooms.map(function (r) { return r.label; }).join(' + ');
+      return {
+        name: p.h.name, town: p.h.town, mix: mix, walk: p.h.walk,
+        pppn: chf(Math.round(p.a.total / people / nights)),
+        total: chf(p.a.total),
+        badge: win ? 'inline-flex' : 'none',
+        bg: p.h.name === selName ? '#FCF4F3' : '#FFFFFF',
+        go: function () { self.setState({ hostel: i }); }
+      };
+    });
+
+    return {
+      red: red,
+      people: people,
+      nights: nights,
+      regionName: regionName,
+      count: priced.length,
+      modes: modeDefs.map(function (m) {
+        return { label: m.label, icon: m.icon, cls: mode === m.id ? 'chip-on' : '',
+                 go: function () { self.setState({ mode: m.id, hostel: 0 }); } };
+      }),
+      regions: regionDefs.map(function (r, i) {
+        return { name: r.name, cls: i === self.state.region ? 'chip-on' : '',
+                 go: function () { self.setState({ region: i, hostel: 0 }); } };
+      }),
+      alloc: {
+        hostel: selected.h.name,
+        summary: chf(selected.a.perNight) + ' a night for ' + people,
+        spare: spare,
+        rooms: allocRooms,
+        tip: tips[mode]
+      },
+      best: {
+        name: cheapest.h.name, town: cheapest.h.town,
+        total: chf(cheapest.a.total),
+        pppn: chf(Math.round(cheapest.a.total / people / nights)),
+        why: 'Cheapest room mix in ' + regionName + ' for ' + people + ' over ' + nights + ' night' + (nights > 1 ? 's' : '') + ', once the whole group is accounted for rather than one bed at a time.'
+      },
+      other: { label: otherLabel, delta: (delta >= 0 ? 'another ' : '') + chf(Math.abs(delta)) + (delta >= 0 ? '' : ' less') },
+      list: list,
+      lessPeople: function () { self.setState({ people: Math.max(1, self.state.people - 1), hostel: 0 }); },
+      morePeople: function () { self.setState({ people: Math.min(12, self.state.people + 1), hostel: 0 }); },
+      lessNights: function () { self.setState({ nights: Math.max(1, self.state.nights - 1) }); },
+      moreNights: function () { self.setState({ nights: Math.min(21, self.state.nights + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

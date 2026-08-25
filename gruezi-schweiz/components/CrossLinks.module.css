@@ -1,0 +1,58 @@
+.section {
+  padding-top: 76px;
+  padding-bottom: 86px;
+}
+
+.eyebrow {
+  color: var(--red);
+  margin-bottom: 26px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.xlink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.xlink:hover {
+  color: inherit;
+  border-color: var(--red);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px rgba(22, 19, 15, 0.1);
+}
+
+.icon {
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.title {
+  display: block;
+  font-weight: 600;
+  font-size: 15.5px;
+}
+
+.body {
+  display: block;
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}

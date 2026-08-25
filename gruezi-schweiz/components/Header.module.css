@@ -1,0 +1,86 @@
+/* Background bleeds full-width on .header; .inner is the 1440px-max content
+ * row (see .gutter in globals.css). */
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.solid {
+  background: var(--dark);
+  height: 84px;
+}
+
+.floating {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  padding-top: 30px;
+  background: transparent;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: var(--on-dark);
+}
+
+.brand:hover {
+  color: var(--on-dark);
+}
+
+.wordmark {
+  font-size: 19px;
+  letter-spacing: 0.04em;
+}
+
+.floating .wordmark {
+  font-size: 21px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 44px;
+  color: var(--on-dark);
+  font: 500 14px / 1 var(--font-karla), Arial, sans-serif;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.navItem:hover {
+  color: var(--on-dark);
+  border-bottom-color: var(--red);
+}
+
+.navOn {
+  border-bottom-color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .nav {
+    gap: 18px;
+  }
+
+  .navItem {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 760px) {
+  /* The bottom tab bar carries navigation on mobile. */
+  .nav {
+    display: none;
+  }
+}

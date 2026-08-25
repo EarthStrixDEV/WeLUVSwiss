@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF8F5; color: #16130F;
+           font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+           -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+    a { color: #C31B18; text-decoration: none; }
+    a:hover { color: #8E110F; }
+    .serif { font-family: "Bodoni Moda", "Didot", Georgia, serif; }
+    .eyebrow { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: #8A8078; }
+    .rule { height: 1px; background: #E4DED5; border: 0; margin: 0; }
+
+    .scene { position: relative; overflow: hidden; background: #B9C6D2; }
+    .scene > i { position: absolute; display: block; }
+    .r1 { left: -6%; right: -6%; bottom: 26%; height: 62%;
+          clip-path: polygon(0% 100%,7% 54%,15% 76%,23% 34%,32% 64%,41% 26%,50% 58%,58% 18%,67% 52%,75% 30%,84% 62%,92% 40%,100% 66%,100% 100%); }
+    .r2 { left: -8%; right: -8%; bottom: 20%; height: 48%;
+          clip-path: polygon(0% 100%,9% 46%,18% 70%,27% 30%,37% 62%,46% 22%,56% 56%,66% 28%,76% 60%,86% 36%,95% 64%,100% 48%,100% 100%); }
+    .r3 { left: -4%; right: -4%; bottom: 14%; height: 32%;
+          clip-path: polygon(0% 100%,11% 40%,22% 66%,33% 28%,45% 58%,57% 24%,69% 54%,80% 32%,91% 60%,100% 44%,100% 100%); }
+    .w  { left: 0; right: 0; bottom: 0; height: 16%; }
+    .gr { inset: 0; opacity: .16; mix-blend-mode: multiply;
+          background-image: repeating-linear-gradient(115deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px),
+                            repeating-linear-gradient(28deg, rgba(0,0,0,.06) 0 1px, transparent 1px 4px); }
+    .vg { inset: 0; background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(20,17,14,.34) 100%); }
+    .sky-dawn  { background: linear-gradient(180deg,#F0D3C0 0%,#E7B9A5 26%,#CFC3C0 58%,#AEB6BE 100%); }
+    .sky-clear { background: linear-gradient(180deg,#6F9CC0 0%,#A7C6DC 48%,#DCE8EF 100%); }
+    .sky-dusk  { background: linear-gradient(180deg,#33415A 0%,#6C6379 40%,#C08D72 76%,#E4BC95 100%); }
+    .sky-mist  { background: linear-gradient(180deg,#C6CDD2 0%,#DDE2E4 52%,#EFF1F1 100%); }
+    .sky-storm { background: linear-gradient(180deg,#3D4A55 0%,#5E6B75 46%,#8D969C 100%); }
+    .sky-gold  { background: linear-gradient(180deg,#8FA9B8 0%,#D8C29C 55%,#F0DDBB 100%); }
+    .t-alpine .r1 { background: linear-gradient(180deg,#FFFFFF 0 13%,#CBD6E0 13% 36%,#8B98A6 36% 100%); opacity: .72; }
+    .t-alpine .r2 { background: linear-gradient(180deg,#F4F7FA 0 10%,#9FADBB 10% 40%,#63707E 40% 100%); opacity: .88; }
+    .t-alpine .r3 { background: linear-gradient(180deg,#DCE3EA 0 7%,#5A6774 7% 44%,#39434E 44% 100%); }
+    .t-alpine .w  { background: linear-gradient(180deg,#587E97,#31536B); }
+    .t-emerald .r1 { background: linear-gradient(180deg,#FFFFFF 0 12%,#BFD1C6 12% 34%,#7E9482 34% 100%); opacity: .7; }
+    .t-emerald .r2 { background: linear-gradient(180deg,#EAF2EB 0 9%,#8AA391 9% 40%,#4F6B57 40% 100%); opacity: .9; }
+    .t-emerald .r3 { background: linear-gradient(180deg,#CFE0D3 0 6%,#3F5A47 6% 44%,#26382C 44% 100%); }
+    .t-emerald .w  { background: linear-gradient(180deg,#3F7C79,#1F4E51); }
+    .t-glacier .r1 { background: linear-gradient(180deg,#FFFFFF 0 16%,#D3E6EC 16% 40%,#8FB3BE 40% 100%); opacity: .75; }
+    .t-glacier .r2 { background: linear-gradient(180deg,#F2FAFC 0 13%,#A6C7D1 13% 42%,#5F868F 42% 100%); opacity: .9; }
+    .t-glacier .r3 { background: linear-gradient(180deg,#DDEFF3 0 9%,#4E7079 9% 46%,#2E4850 46% 100%); }
+    .t-glacier .w  { background: linear-gradient(180deg,#5FA0AA,#2E6570); }
+    .t-slate .r1 { background: linear-gradient(180deg,#F3F5F7 0 11%,#B4BCC3 11% 34%,#78828B 34% 100%); opacity: .62; }
+    .t-slate .r2 { background: linear-gradient(180deg,#E4E8EB 0 9%,#8B949C 9% 40%,#4C555D 40% 100%); opacity: .86; }
+    .t-slate .r3 { background: linear-gradient(180deg,#C9D0D6 0 6%,#39424A 6% 44%,#1F262C 44% 100%); }
+    .t-slate .w  { background: linear-gradient(180deg,#4B6272,#232F39); }
+    .t-golden .r1 { background: linear-gradient(180deg,#FFF7E6 0 13%,#E4D3B4 13% 36%,#AD9C7E 36% 100%); opacity: .7; }
+    .t-golden .r2 { background: linear-gradient(180deg,#F7E9CE 0 10%,#C0A87F 10% 40%,#7E6A4B 40% 100%); opacity: .9; }
+    .t-golden .r3 { background: linear-gradient(180deg,#E7D6B4 0 7%,#5F4F36 7% 44%,#362C1E 44% 100%); }
+    .t-golden .w  { background: linear-gradient(180deg,#7E7A52,#443F2A); }
+
+    .chip { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px;
+            border-radius: 999px; border: 1px solid #DED7CE; background: #FFFFFF; color: #4A423B;
+            font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+            transition: background .18s ease, color .18s ease, border-color .18s ease; }
+    .chip:not(.chip-on):hover { border-color: var(--red); color: var(--red); }
+    .chip-on { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+    .chip svg { width: 18px; height: 18px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 28px;
+           border-radius: 2px; border: 0; cursor: pointer; font: 600 15px/1 Karla, Arial, sans-serif;
+           transition: transform .18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-red { background: var(--red); color: #FFFFFF; }
+    .btn-ink { background: #16130F; color: #FBF9F6; }
+    .btn-ghost { background: transparent; color: #FBF9F6; box-shadow: inset 0 0 0 1px rgba(251,249,246,.55); }
+    .nav-i { display: inline-flex; align-items: center; gap: 7px; height: 44px; color: #FBF9F6;
+             font: 500 14px/1 Karla, Arial, sans-serif; cursor: pointer;
+             border-bottom: 2px solid transparent; transition: border-color .2s ease; }
+    .nav-i:hover { border-bottom-color: var(--red); }
+    .nav-i svg { width: 17px; height: 17px; }
+    .nav-on { border-bottom-color: var(--red); }
+
+    .xlink { display: flex; align-items: center; gap: 14px; padding: 22px 24px; background: #FFFFFF;
+             border: 1px solid #E4DED5; border-radius: 3px; cursor: pointer;
+             transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+    .xlink:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 18px 34px rgba(22,19,15,.10); }
+    .xlink svg { width: 22px; height: 22px; color: #C31B18; flex-shrink: 0; }
+
+    .pin { position: absolute; transform: translate(-50%,-100%); cursor: pointer; transition: opacity .25s ease; }
+    .pin .dot { width: 15px; height: 15px; border-radius: 50%; background: #FFFFFF;
+                border: 4px solid var(--red); box-shadow: 0 3px 10px rgba(22,19,15,.35); transition: transform .2s ease; }
+    .pin:hover .dot { transform: scale(1.28); }
+    .pin .lab { position: absolute; left: 50%; top: -26px; transform: translateX(-50%); white-space: nowrap;
+                font: 600 11.5px/1 Karla, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase;
+                color: #16130F; background: rgba(255,255,255,.9); padding: 4px 8px; border-radius: 2px; }
+    .pin-on .dot { background: var(--red); border-color: #FFFFFF; transform: scale(1.35); }
+    .pin-off { opacity: .22; }
+
+    .row { transition: background .2s ease; }
+    .row:hover { background: #FCFAF7; }
+    .step { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #DED7CE; background: #FFFFFF;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; color: #16130F;
+            transition: border-color .18s ease, color .18s ease; }
+    .step:hover { border-color: var(--red); color: var(--red); }
+    .card { background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px rgba(22,19,15,.12); border-color: #D6CEC3; }
+  </style>
+</helmet>
+
+<div style="--red: {{red}}; width: 1440px; margin: 0 auto; background: #FAF8F5; overflow: hidden">
+  <header style="background: #16130F; display: flex; align-items: center; justify-content: space-between; padding: 0 80px; height: 84px">
+      <div style="display: flex; align-items: center; gap: 13px">
+        <div style="width: 30px; height: 30px; background: var(--red); position: relative; border-radius: 2px">
+          <div style="position: absolute; left: 50%; top: 22%; width: 3.5px; height: 56%; margin-left: -1.75px; background: #FFFFFF"></div>
+          <div style="position: absolute; top: 50%; left: 22%; height: 3.5px; width: 56%; margin-top: -1.75px; background: #FFFFFF"></div>
+        </div>
+        <div class="serif" style="color: #FBF9F6; font-size: 19px; letter-spacing: .04em">Grüezi Schweiz</div>
+      </div>
+      <nav style="display: flex; align-items: center; gap: 30px">
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>Regions</div>
+        <div class="nav-i nav-on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>Rail Passes</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>Hostels</div>
+        <div class="nav-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3"/></svg>Find a Trip</div>
+        <button class="btn btn-red" style="height: 44px; padding: 0 20px; font-size: 14px">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          Plan My Route
+        </button>
+      </nav>
+  </header>
+
+  <!-- hero -->
+  <section style="position: relative; height: 420px; overflow: hidden">
+    <div class="scene sky-dusk t-slate" style="position: absolute; inset: 0">
+      <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+    </div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,17,14,.80) 0%, rgba(20,17,14,.34) 58%, rgba(20,17,14,.14) 100%)"></div>
+    <div style="position: absolute; left: 80px; bottom: 52px; max-width: 700px">
+      <div class="eyebrow" style="color: #F1DED4">Rail passes</div>
+      <h1 class="serif" style="margin: 14px 0 0; color: #FBF9F6; font-size: 66px; line-height: 1.02; font-weight: 400">
+        The right pass is the one that matches your moving days
+      </h1>
+      <p style="margin: 18px 0 0; color: #E4DAD3; font-size: 16.5px; line-height: 1.65; font-weight: 300">
+        Nobody needs every pass. Put in the journey you actually plan to make and how many days you will be on the move, and the comparison below picks the cheapest way to buy it.
+      </p>
+    </div>
+  </section>
+
+  <!-- price / station comparison -->
+  <section style="padding: 88px 80px 92px">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px">
+      <div>
+        <div class="eyebrow" style="color: var(--red)">Station to station</div>
+        <h2 class="serif" style="margin: 12px 0 0; font-size: 50px; line-height: 1.04; font-weight: 400">Price comparison</h2>
+      </div>
+      <p style="max-width: 420px; margin: 0; font-size: 15px; line-height: 1.7; color: #6E6862; font-weight: 300">
+        Pick the leg you make most often. Everything below recalculates against it — including whether a pass is worth buying at all.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0,1fr) 440px; gap: 36px; align-items: start">
+      <div>
+        <div style="background: #FFFFFF; border: 1px solid #E4DED5; border-radius: 3px; padding: 30px">
+          <div style="display: flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#C31B18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/></svg>
+            Departing from
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px">
+            <sc-for list="{{fromOpts}}" as="s" hint-placeholder-count="8">
+              <div class="chip {{s.cls}}" onClick="{{s.go}}" style="height: 44px; padding: 0 16px; font-size: 13.5px">{{s.name}}</div>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078; margin-top: 30px">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#C31B18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+            Travelling to
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px">
+            <sc-for list="{{toOpts}}" as="s" hint-placeholder-count="8">
+              <div class="chip {{s.cls}}" onClick="{{s.go}}" style="height: 44px; padding: 0 16px; font-size: 13.5px">{{s.name}}</div>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 34px; padding-top: 26px; border-top: 1px solid #EDE7DE">
+            <div>
+              <div style="font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8A8078">Days you will be moving</div>
+              <div style="font-size: 13.5px; color: #6E6862; font-weight: 300; margin-top: 6px">Only count days you take a long train, not rest days.</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px">
+              <div class="step" onClick="{{lessDays}}">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+              </div>
+              <div class="serif" style="font-size: 34px; min-width: 48px; text-align: center">{{days}}</div>
+              <div class="step" onClick="{{moreDays}}">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; border: 1px solid #E4DED5; border-radius: 3px; overflow: hidden; background: #FFFFFF">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) 150px 150px 130px; background: #F1EBE3; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: #6E6862">
+            <div style="padding: 16px 22px">How you buy it</div>
+            <div style="padding: 16px 12px">Up front</div>
+            <div style="padding: 16px 12px">Per journey</div>
+            <div style="padding: 16px 22px; text-align: right">Total</div>
+          </div>
+          <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+            <div class="row" style="display: grid; grid-template-columns: minmax(0,1fr) 150px 150px 130px; border-top: 1px solid #EDE7DE; align-items: center; background: {{o.bg}}">
+              <div style="padding: 20px 22px">
+                <div style="display: flex; align-items: center; gap: 10px">
+                  <div style="font-weight: 600; font-size: 15.5px">{{o.name}}</div>
+                  <div style="display: {{o.badge}}; height: 22px; padding: 0 10px; align-items: center; border-radius: 999px; background: var(--red); color: #FFFFFF; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600">Best rate</div>
+                </div>
+                <div style="font-size: 13.5px; color: #6E6862; font-weight: 300; margin-top: 5px">{{o.note}}</div>
+              </div>
+              <div style="padding: 20px 12px; font-size: 14.5px; color: #4A423B">{{o.upfront}}</div>
+              <div style="padding: 20px 12px; font-size: 14.5px; color: #4A423B">{{o.per}}</div>
+              <div class="serif" style="padding: 20px 22px; text-align: right; font-size: 24px; color: {{o.fg}}">{{o.total}}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: 16px; font-size: 12.5px; color: #8A8078; font-weight: 300">
+          * Sample fares for layout, second class, adult. Distances are approximate and pass prices change yearly — wire this to live SBB data before launch.
+        </div>
+      </div>
+
+      <!-- recommendation -->
+      <div style="background: #16130F; color: #FBF9F6; border-radius: 3px; padding: 32px 30px 34px; position: sticky; top: 20px">
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #E8877F">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.4 9.4l6.1-.8z"/></svg>
+          Our recommendation
+        </div>
+        <h3 class="serif" style="margin: 18px 0 0; font-size: 38px; line-height: 1.06; font-weight: 400; color: #FBF9F6">{{best.name}}</h3>
+        <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 16px">
+          <div class="serif" style="font-size: 46px; color: #FBF9F6">{{best.total}}</div>
+          <div style="font-size: 14px; color: #B7AEA5">for {{days}} moving days</div>
+        </div>
+        <p style="margin: 18px 0 0; font-size: 14.5px; line-height: 1.66; color: #D7CCC4; font-weight: 300">{{best.why}}</p>
+        <div style="margin-top: 22px; padding: 16px 18px; background: rgba(251,249,246,.07); border-radius: 3px">
+          <div style="font-size: 12.5px; color: #B7AEA5; line-height: 1.6">Second best is <span style="color: #FBF9F6">{{second.name}}</span> at {{second.total}} — a difference of {{gap}}.</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: 13.5px; color: #D7CCC4">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#E8877F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.01"/></svg>
+          <span>Mountain railways above the main network are only part-covered by any pass — budget separately for those.</span>
+        </div>
+        <button class="btn btn-red" style="width: 100%; margin-top: 26px">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3"/></svg>
+          Where to buy it
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" style="margin: 0 80px">
+
+  <!-- pass cards -->
+  <section style="padding: 88px 80px 92px">
+    <div class="eyebrow" style="color: var(--red)">What each one actually is</div>
+    <h2 class="serif" style="margin: 12px 0 44px; font-size: 50px; line-height: 1.04; font-weight: 400">Four ways to pay for trains</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 22px">
+      <sc-for list="{{passes}}" as="p" hint-placeholder-count="4">
+        <div class="card" style="padding: 26px 24px 28px; display: flex; flex-direction: column; gap: 14px">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#C31B18" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{p.icon}}"/></svg>
+          <div>
+            <h3 class="serif" style="margin: 0; font-size: 24px; line-height: 1.14; font-weight: 400">{{p.name}}</h3>
+            <div style="font-size: 13px; color: var(--red); font-weight: 600; margin-top: 7px">{{p.price}}</div>
+          </div>
+          <p style="margin: 0; font-size: 14px; line-height: 1.62; color: #6E6862; font-weight: 300">{{p.body}}</p>
+          <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid #EDE7DE; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4A423B">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C31B18" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+            {{p.who}}
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- link to regions -->
+  <section style="background: #F1EBE3; padding: 88px 80px 92px">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px">
+      <div>
+        <div class="eyebrow" style="color: var(--red)">Where it takes you</div>
+        <h2 class="serif" style="margin: 12px 0 0; font-size: 50px; line-height: 1.04; font-weight: 400">Passes by region</h2>
+      </div>
+      <p style="max-width: 400px; margin: 0; font-size: 15px; line-height: 1.7; color: #4A423B; font-weight: 300">
+        A regional pass beats a national one if you are staying put. These are the four regions where that is usually true.
+      </p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 22px">
+      <sc-for list="{{regions}}" as="r" hint-placeholder-count="4">
+        <div class="card" style="cursor: pointer">
+          <div class="scene {{r.cls}}" style="height: 190px; position: relative">
+            <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+          </div>
+          <div style="padding: 20px 20px 22px">
+            <h3 class="serif" style="margin: 0; font-size: 22px; line-height: 1.14; font-weight: 400">{{r.name}}</h3>
+            <div style="font-size: 13.5px; color: #6E6862; font-weight: 300; margin-top: 8px; min-height: 44px">{{r.body}}</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid #EDE7DE; font-size: 13.5px; font-weight: 600; color: var(--red)">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              Open the region
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 76px 80px 86px">
+    <div class="eyebrow" style="color: var(--red); margin-bottom: 26px">Next</div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px">
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V9l6-5 6 5v12M10 21v-6h4v6"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Hostels along this route</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">Beds priced per person, allocated for your group size</div>
+        </div>
+      </div>
+      <div class="xlink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3"/></svg>
+        <div>
+          <div style="font-weight: 600; font-size: 15.5px">Find a trip</div>
+          <div style="font-size: 13.5px; color: #6E6862; margin-top: 4px; font-weight: 300">Start from a month and a budget instead of a station</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #16130F; color: #8A8078; padding: 34px 80px; display: flex; justify-content: space-between; font-size: 12.5px">
+    <div>© [YEAR] Grüezi Schweiz</div>
+    <div>Fares and pass prices are sample figures for layout — replace with live data before launch.</div>
+  </footer>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "red": {"editor":"color","default":"#C31B18","options":["#C31B18","#D8232A","#8E110F","#16130F"],"section":"Brand"},
+  "$preview": {"width":1440,"height":3700}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { from: 0, to: 4, days: 5 };
+  }
+  renderVals() {
+    var self = this;
+    var red = this.props.red || '#C31B18';
+
+    // pseudo grid positions in km, used to derive a plausible fare
+    var stations = [
+      { name: 'Zürich', x: 240, y: 80 },
+      { name: 'Basel', x: 150, y: 20 },
+      { name: 'Bern', x: 100, y: 170 },
+      { name: 'Lucerne', x: 185, y: 130 },
+      { name: 'Interlaken', x: 140, y: 215 },
+      { name: 'Lauterbrunnen', x: 145, y: 245 },
+      { name: 'Zermatt', x: 110, y: 320 },
+      { name: 'Geneva', x: 0, y: 250 },
+      { name: 'Lugano', x: 250, y: 330 },
+      { name: 'St. Moritz', x: 350, y: 200 }
+    ];
+
+    var a = stations[this.state.from], b = stations[this.state.to];
+    var km = Math.round(Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)) * 1.25);
+    var fare = Math.max(8, Math.round(km * 0.55));
+    var days = this.state.days;
+
+    function chf(n) { return 'CHF ' + n; }
+
+    // sample pass prices
+    var halfCard = 120;
+    var stpTiers = [{ d: 3, p: 244 }, { d: 4, p: 295 }, { d: 6, p: 379 }, { d: 8, p: 419 }, { d: 15, p: 459 }];
+    var stp = stpTiers[stpTiers.length - 1];
+    for (var i = 0; i < stpTiers.length; i++) { if (days <= stpTiers[i].d) { stp = stpTiers[i]; break; } }
+    var saverPerDay = 52;
+
+    var opts = [
+      { name: 'Point-to-point tickets', note: 'Buy each journey as you go, no card',
+        upfront: 'Nothing', per: chf(fare), total: days * fare,
+        why: 'You are moving on few enough days that no card pays for itself. Buy singles and keep the flexibility.' },
+      { name: 'Half Fare Card', note: 'Every ticket at 50% for one month',
+        upfront: chf(halfCard), per: chf(Math.round(fare / 2)), total: halfCard + days * Math.round(fare / 2),
+        why: 'The card costs less than the fares it saves you over this many days — and it also halves the mountain railways.' },
+      { name: 'Saver Day Pass', note: 'One flat day of travel, booked ahead',
+        upfront: 'Nothing', per: chf(saverPerDay), total: days * saverPerDay,
+        why: 'Cheapest when you make long legs on a handful of days and can commit to the dates in advance.' },
+      { name: 'Swiss Travel Pass', note: stp.d + ' consecutive days, boats and buses included',
+        upfront: chf(stp.p), per: 'Included', total: stp.p,
+        why: 'You are moving often enough that unlimited travel wins outright — and it covers lake boats and most museums too.' }
+    ];
+
+    var sorted = opts.slice().sort(function (x, y) { return x.total - y.total; });
+    var best = sorted[0], second = sorted[1];
+
+    var options = opts.map(function (o) {
+      var win = o.name === best.name;
+      return {
+        name: o.name, note: o.note, upfront: o.upfront, per: o.per,
+        total: chf(o.total),
+        badge: win ? 'inline-flex' : 'none',
+        bg: win ? '#FCF4F3' : '#FFFFFF',
+        fg: win ? red : '#16130F'
+      };
+    });
+
+    var fromOpts = stations.map(function (s, i) {
+      return { name: s.name, cls: i === self.state.from ? 'chip-on' : '', go: function () { self.setState({ from: i }); } };
+    });
+    var toOpts = stations.map(function (s, i) {
+      return { name: s.name, cls: i === self.state.to ? 'chip-on' : '', go: function () { self.setState({ to: i }); } };
+    });
+
+    var passes = [
+      { name: 'Swiss Travel Pass', price: 'From CHF 244 · 3 days*', icon: 'M4 4h16v12H4zM4 10h16M8 20l2-3M16 20l-2-3',
+        body: 'Unlimited trains, buses and lake boats on consecutive days, plus free entry to most museums and discounts on the mountain railways.',
+        who: 'Moving most days' },
+      { name: 'Half Fare Card', price: 'CHF 120 · one month*', icon: 'M4 7h16v11H4zM4 11h16M12 4v3',
+        body: 'Halves the price of almost everything on rails, including many cable cars. Not a ticket in itself — you still buy each journey.',
+        who: 'Two weeks or more' },
+      { name: 'Saver Day Pass', price: 'From CHF 52 a day*', icon: 'M5 5h14v14H5zM5 9h14M9 3v4M15 3v4',
+        body: 'A flat-rate day of unlimited travel, priced by how far ahead you book and how busy the date is. Dates are fixed once bought.',
+        who: 'Planned long legs' },
+      { name: 'Regional passes', price: 'From CHF 250 · 3 days*', icon: 'M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11zM12 7v6M9 10h6',
+        body: 'One region, deeper coverage — the Berner Oberland Pass covers the local mountain railways a national pass only discounts.',
+        who: 'Staying in one region' }
+    ];
+
+    var regions = [
+      { name: 'Bernese Oberland', cls: 'sky-mist t-emerald', body: 'Two lakes and the mountain railway network the regional pass was built for.' },
+      { name: 'Valais', cls: 'sky-dawn t-alpine', body: 'Zermatt, Saas-Fee and the high passes. Long legs, so a Half Fare Card earns its keep.' },
+      { name: 'Graubünden', cls: 'sky-clear t-glacier', body: 'The Rhaetian Railway runs on its own network — check what your pass actually covers.' },
+      { name: 'Ticino', cls: 'sky-gold t-golden', body: 'One long ride south, then short local hops and lake boats to Italy.' }
+    ];
+
+    return {
+      red: red,
+      fromOpts: fromOpts,
+      toOpts: toOpts,
+      days: days,
+      options: options,
+      best: { name: best.name, total: chf(best.total), why: best.why },
+      second: { name: second.name, total: chf(second.total) },
+      gap: chf(second.total - best.total),
+      passes: passes,
+      regions: regions,
+      lessDays: function () { self.setState({ days: Math.max(1, self.state.days - 1) }); },
+      moreDays: function () { self.setState({ days: Math.min(15, self.state.days + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

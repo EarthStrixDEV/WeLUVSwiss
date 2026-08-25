@@ -1,0 +1,28 @@
+.flag {
+  background: var(--red);
+  position: relative;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.flag i {
+  position: absolute;
+  display: block;
+  background: var(--white);
+}
+
+.v {
+  left: 50%;
+  top: 22%;
+  width: 12%;
+  height: 56%;
+  transform: translateX(-50%);
+}
+
+.h {
+  top: 50%;
+  left: 22%;
+  height: 12%;
+  width: 56%;
+  transform: translateY(-50%);
+}

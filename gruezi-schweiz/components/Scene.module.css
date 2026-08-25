@@ -1,0 +1,21 @@
+.scene {
+  position: relative;
+  overflow: hidden;
+  background: #8ea8a7 url("/images/swiss-alpine-lake.png") center / cover no-repeat;
+}
+
+.scene > i {
+  position: absolute;
+  display: block;
+}
+
+.vg {
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 30%, transparent 38%, rgba(20, 17, 14, 0.34) 100%);
+}
+
+/* Preserve the original art direction while allowing one photo to serve every crop. */
+.sky-dawn .vg { background-color: rgba(224, 165, 125, 0.1); }
+.sky-dusk .vg, .sky-storm .vg { background-color: rgba(20, 29, 42, 0.16); }
+.sky-mist .vg { background-color: rgba(211, 222, 224, 0.08); }
+.sky-gold .vg { background-color: rgba(210, 164, 87, 0.12); }

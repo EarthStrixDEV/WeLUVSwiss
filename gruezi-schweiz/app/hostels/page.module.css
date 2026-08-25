@@ -1,0 +1,63 @@
+/* Hero — 400px, 62px headline (spec §4.4 / artboard L131-145). */
+
+.hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+
+.heroScene {
+  position: absolute;
+  inset: 0;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 17, 14, 0.8) 0%, rgba(20, 17, 14, 0.32) 60%, rgba(20, 17, 14, 0.12) 100%);
+}
+
+.heroContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+.heroTitle {
+  margin: 14px 0 0;
+  max-width: 680px;
+  color: var(--on-dark);
+  font-size: 62px;
+  line-height: 1.02;
+  font-weight: 400;
+}
+
+.heroLead {
+  margin: 16px 0 0;
+  max-width: 680px;
+  color: var(--on-dark-2);
+  font-size: 16.5px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+@media (max-width: 1100px) {
+  .heroTitle {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    height: 360px;
+  }
+
+  .heroTitle {
+    font-size: 36px;
+  }
+
+  .heroLead {
+    font-size: 15px;
+  }
+}

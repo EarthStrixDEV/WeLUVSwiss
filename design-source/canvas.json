@@ -1,0 +1,23 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Landing page" },
+    { "id": "page-2", "name": "Inner pages" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "page": "page-1", "x": 0, "y": 0, "w": 1440, "h": 9600, "title": "Desktop — full page", "expand": "fill", "print": "flow" },
+    { "file": "Mobile.dc.html", "page": "page-1", "x": 1620, "y": 0, "w": 390, "h": 4300, "title": "Mobile — 390px", "expand": "fill", "print": "flow" },
+    { "file": "Region.dc.html", "page": "page-2", "x": 0, "y": 0, "w": 1440, "h": 4800, "title": "Region — Bernese Oberland", "expand": "fill", "print": "flow" },
+    { "file": "RailPasses.dc.html", "page": "page-2", "x": 1620, "y": 0, "w": 1440, "h": 3700, "title": "Rail Passes", "expand": "fill", "print": "flow" },
+    { "file": "Hostels.dc.html", "page": "page-2", "x": 3240, "y": 0, "w": 1440, "h": 3300, "title": "Hostels", "expand": "fill", "print": "flow" },
+    { "file": "FindTrip.dc.html", "page": "page-2", "x": 4860, "y": 0, "w": 1440, "h": 2700, "title": "Find a Trip", "expand": "fill", "print": "flow" }
+  ],
+  "annotations": [
+    { "id": "brief", "page": "page-1", "x": 0, "y": -230, "w": 620, "text": "Grüezi Schweiz — backpacker guide to Switzerland\n\nDirection: Alpine Editorial. Bodoni Moda display + Karla body, warm paper #FAF8F5, Swiss red #C31B18 as a precision accent only.\n\nAll photography is drawn in CSS as placeholders — swap for licensed images before launch." },
+    { "id": "interactive", "page": "page-1", "x": 1620, "y": -230, "w": 390, "text": "Working: carousel, map filters and pins, and the Groceries / Souvenirs tabs. Click them.\n\nTweak the Swiss red at the top of the artboard to restyle every accent at once." },
+    { "id": "region-note", "page": "page-2", "x": 0, "y": -230, "w": 620, "text": "Region page — Bernese Oberland\n\nWorking: the valley map filters by place type, and every pin swaps the detail card.\n\nBeyond the brief: where to base yourself (four bases compared) and a three-day route from one bed, because the map alone does not tell you where to sleep." },
+    { "id": "rail-note", "page": "page-2", "x": 1620, "y": -230, "w": 620, "text": "Rail Passes\n\nWorking: pick any two stations and a number of moving days — the fare, the four buying options and the recommendation all recompute.\n\nFares are derived from approximate distances at a sample rate. Wire to live SBB pricing before launch." },
+    { "id": "hostel-note", "page": "page-2", "x": 3240, "y": -230, "w": 620, "text": "Hostels\n\nWorking: people count, nights, sleeping preference and region all drive a real room allocation — dorm beds, twins and four-bed rooms — and the whole list re-prices and re-sorts for the group.\n\nThe greyed bed icons are capacity you pay for but do not fill (an odd number in twin rooms)." },
+    { "id": "find-note", "page": "page-2", "x": 4860, "y": -230, "w": 620, "text": "Find a Trip\n\nWorking: all four filter rows narrow the results live, with a real empty state when nothing fits all four. The search field is typeable but not wired to the results.\n\nDaily budgets are sample estimates." }
+  ],
+  "launch": { "view": "canvas", "page": "page-2" }
+}

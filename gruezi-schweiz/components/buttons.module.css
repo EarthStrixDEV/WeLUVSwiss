@@ -1,0 +1,51 @@
+/* Buttons (spec §2.5): primary 54px / compact 44–48px / ghost on dark.
+ * 2px radius, translateY(-2px) hover lift. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  padding: 0 28px;
+  border-radius: 2px;
+  border: 0;
+  cursor: pointer;
+  font: 600 15px / 1 var(--font-karla), Arial, sans-serif;
+  transition: transform 0.18s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.red {
+  background: var(--red);
+  color: var(--white);
+}
+
+.red:hover {
+  color: var(--white);
+}
+
+.ink {
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--on-dark);
+  box-shadow: inset 0 0 0 1px rgba(251, 249, 246, 0.55);
+}
+
+.ghost:hover {
+  color: var(--on-dark);
+}
+
+.compact {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+}

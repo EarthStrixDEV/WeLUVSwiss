@@ -1,0 +1,11 @@
+.section {
+  background: var(--dark);
+  padding: 100px 0 108px;
+  color: var(--on-dark);
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 40px 0 44px;
+  }
+}

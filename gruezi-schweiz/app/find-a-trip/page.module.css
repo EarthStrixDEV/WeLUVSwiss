@@ -1,0 +1,368 @@
+/* Find a Trip (spec §4.5) — search hero, filter panel, results grid, empty
+ * state. Breakpoints 1100/900/760 match globals.css. */
+
+/* ---------- Search hero ---------- */
+
+.hero {
+  position: relative;
+  height: 800px;
+  overflow: hidden;
+}
+
+.heroScene {
+  position: absolute;
+  inset: 0;
+}
+
+.heroGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 17, 14, 0.52) 0%,
+    rgba(20, 17, 14, 0.3) 45%,
+    rgba(20, 17, 14, 0.66) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  padding: 92px 0 0;
+  text-align: center;
+}
+
+.heroTitle {
+  margin: 18px 0 0;
+  color: var(--on-dark);
+  font-size: 74px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* ---------- Search box ---------- */
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 46px auto 0;
+  max-width: 980px;
+  background: rgba(251, 249, 246, 0.96);
+  border-radius: 3px;
+  padding: 12px 12px 12px 28px;
+  box-shadow: 0 26px 60px rgba(20, 17, 14, 0.34);
+}
+
+.searchIcon {
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex-grow: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: 300 21px / 1.3 var(--font-karla), Arial, sans-serif;
+  color: var(--ink);
+  padding: 18px 0;
+}
+
+.searchButton {
+  height: 62px;
+  padding: 0 34px;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ---------- Filter panel ---------- */
+
+.filterPanel {
+  max-width: 1120px;
+  margin: 26px auto 0;
+  background: rgba(20, 17, 14, 0.42);
+  border: 1px solid rgba(251, 249, 246, 0.2);
+  border-radius: 3px;
+  backdrop-filter: blur(3px);
+  padding: 24px 28px 26px;
+  text-align: left;
+}
+
+.filterRow {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid rgba(251, 249, 246, 0.14);
+}
+
+.filterRow:first-child {
+  border-top: 0;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--on-dark-3);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+@media (max-width: 900px) {
+  .heroContent {
+    padding: 130px 0 0;
+  }
+
+  .heroTitle {
+    font-size: 54px;
+  }
+
+  .filterRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .heroTitle {
+    font-size: 40px;
+  }
+
+  .searchBox {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .searchInput {
+    flex-basis: 100%;
+    order: 3;
+    padding: 8px 0;
+    font-size: 17px;
+  }
+
+  .searchButton {
+    width: 100%;
+    order: 4;
+  }
+
+  .filterPanel {
+    padding: 20px 18px 22px;
+  }
+}
+
+/* ---------- Results ---------- */
+
+.results {
+  padding: 76px 0 92px;
+}
+
+.resultsHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.resultsTitle {
+  margin: 12px 0 0;
+  font-size: 48px;
+  line-height: 1.04;
+  font-weight: 400;
+}
+
+@media (max-width: 760px) {
+  .resultsHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resultsTitle {
+    font-size: 34px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 40px rgba(22, 19, 15, 0.12);
+  border-color: #d6cec3;
+}
+
+.cardScene {
+  height: 250px;
+  position: relative;
+}
+
+.cardSceneInner {
+  position: absolute;
+  inset: 0;
+}
+
+.cardSceneGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 17, 14, 0) 55%, rgba(20, 17, 14, 0.62) 100%);
+}
+
+.cardRegion {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  color: var(--on-dark);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.cardDays {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  height: 28px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(251, 249, 246, 0.92);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cardBody {
+  padding: 22px 22px 24px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.14;
+  font-weight: 400;
+}
+
+.cardText {
+  margin: 10px 0 0;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--muted);
+  font-weight: 300;
+  min-height: 70px;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.cardTag {
+  height: 26px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--band);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+}
+
+.cardFrom {
+  font-size: 13px;
+  color: var(--faint-readable);
+}
+
+.cardPriceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.cardPrice {
+  font-size: 24px;
+  color: var(--red);
+}
+
+.cardPriceCaption {
+  font-size: 12.5px;
+  color: var(--faint-readable);
+}
+
+/* ---------- Empty state ---------- */
+
+.empty {
+  padding: 70px 40px;
+  text-align: center;
+  border: 1px dashed #ded7ce;
+  border-radius: 3px;
+}
+
+.emptyTitle {
+  font-size: 28px;
+  margin-top: 16px;
+}
+
+.emptyText {
+  margin: 10px auto 0;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.emptyButton {
+  margin-top: 24px;
+}

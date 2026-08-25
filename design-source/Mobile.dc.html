@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Karla:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF8F5; color: #16130F;
+           font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+           -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+    a { color: #C31B18; text-decoration: none; }
+    a:hover { color: #8E110F; }
+    .serif { font-family: "Bodoni Moda", "Didot", Georgia, serif; }
+    .eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; color: #8A8078; }
+    .scene { position: relative; overflow: hidden; background: #B9C6D2; }
+    .scene > i { position: absolute; display: block; }
+    .r1 { left: -6%; right: -6%; bottom: 26%; height: 62%;
+          clip-path: polygon(0% 100%,7% 54%,15% 76%,23% 34%,32% 64%,41% 26%,50% 58%,58% 18%,67% 52%,75% 30%,84% 62%,92% 40%,100% 66%,100% 100%); }
+    .r2 { left: -8%; right: -8%; bottom: 20%; height: 48%;
+          clip-path: polygon(0% 100%,9% 46%,18% 70%,27% 30%,37% 62%,46% 22%,56% 56%,66% 28%,76% 60%,86% 36%,95% 64%,100% 48%,100% 100%); }
+    .r3 { left: -4%; right: -4%; bottom: 14%; height: 32%;
+          clip-path: polygon(0% 100%,11% 40%,22% 66%,33% 28%,45% 58%,57% 24%,69% 54%,80% 32%,91% 60%,100% 44%,100% 100%); }
+    .w  { left: 0; right: 0; bottom: 0; height: 16%; }
+    .gr { inset: 0; opacity: .16; mix-blend-mode: multiply;
+          background-image: repeating-linear-gradient(115deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px); }
+    .vg { inset: 0; background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(20,17,14,.34) 100%); }
+    .sky-dawn  { background: linear-gradient(180deg,#F0D3C0 0%,#E7B9A5 26%,#CFC3C0 58%,#AEB6BE 100%); }
+    .sky-clear { background: linear-gradient(180deg,#6F9CC0 0%,#A7C6DC 48%,#DCE8EF 100%); }
+    .sky-dusk  { background: linear-gradient(180deg,#33415A 0%,#6C6379 40%,#C08D72 76%,#E4BC95 100%); }
+    .sky-mist  { background: linear-gradient(180deg,#C6CDD2 0%,#DDE2E4 52%,#EFF1F1 100%); }
+    .sky-gold  { background: linear-gradient(180deg,#8FA9B8 0%,#D8C29C 55%,#F0DDBB 100%); }
+    .t-alpine .r1 { background: linear-gradient(180deg,#FFFFFF 0 13%,#CBD6E0 13% 36%,#8B98A6 36% 100%); opacity: .72; }
+    .t-alpine .r2 { background: linear-gradient(180deg,#F4F7FA 0 10%,#9FADBB 10% 40%,#63707E 40% 100%); opacity: .88; }
+    .t-alpine .r3 { background: linear-gradient(180deg,#DCE3EA 0 7%,#5A6774 7% 44%,#39434E 44% 100%); }
+    .t-alpine .w  { background: linear-gradient(180deg,#587E97,#31536B); }
+    .t-emerald .r1 { background: linear-gradient(180deg,#FFFFFF 0 12%,#BFD1C6 12% 34%,#7E9482 34% 100%); opacity: .7; }
+    .t-emerald .r2 { background: linear-gradient(180deg,#EAF2EB 0 9%,#8AA391 9% 40%,#4F6B57 40% 100%); opacity: .9; }
+    .t-emerald .r3 { background: linear-gradient(180deg,#CFE0D3 0 6%,#3F5A47 6% 44%,#26382C 44% 100%); }
+    .t-emerald .w  { background: linear-gradient(180deg,#3F7C79,#1F4E51); }
+    .t-glacier .r1 { background: linear-gradient(180deg,#FFFFFF 0 16%,#D3E6EC 16% 40%,#8FB3BE 40% 100%); opacity: .75; }
+    .t-glacier .r2 { background: linear-gradient(180deg,#F2FAFC 0 13%,#A6C7D1 13% 42%,#5F868F 42% 100%); opacity: .9; }
+    .t-glacier .r3 { background: linear-gradient(180deg,#DDEFF3 0 9%,#4E7079 9% 46%,#2E4850 46% 100%); }
+    .t-glacier .w  { background: linear-gradient(180deg,#5FA0AA,#2E6570); }
+    .t-slate .r1 { background: linear-gradient(180deg,#F3F5F7 0 11%,#B4BCC3 11% 34%,#78828B 34% 100%); opacity: .62; }
+    .t-slate .r2 { background: linear-gradient(180deg,#E4E8EB 0 9%,#8B949C 9% 40%,#4C555D 40% 100%); opacity: .86; }
+    .t-slate .r3 { background: linear-gradient(180deg,#C9D0D6 0 6%,#39424A 6% 44%,#1F262C 44% 100%); }
+    .t-slate .w  { background: linear-gradient(180deg,#4B6272,#232F39); }
+    .t-golden .r1 { background: linear-gradient(180deg,#FFF7E6 0 13%,#E4D3B4 13% 36%,#AD9C7E 36% 100%); opacity: .7; }
+    .t-golden .r2 { background: linear-gradient(180deg,#F7E9CE 0 10%,#C0A87F 10% 40%,#7E6A4B 40% 100%); opacity: .9; }
+    .t-golden .r3 { background: linear-gradient(180deg,#E7D6B4 0 7%,#5F4F36 7% 44%,#362C1E 44% 100%); }
+    .t-golden .w  { background: linear-gradient(180deg,#7E7A52,#443F2A); }
+    .chip { display: inline-flex; align-items: center; gap: 7px; height: 46px; padding: 0 16px;
+            border-radius: 999px; border: 1px solid #4A4036; background: transparent; color: #D7CCC4;
+            font: 500 13.5px/1 Karla, Arial, sans-serif; cursor: pointer; }
+    .chip svg { width: 17px; height: 17px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; height: 52px; padding: 0 22px;
+           border-radius: 2px; border: 0; cursor: pointer; font: 600 15px/1 Karla, Arial, sans-serif; }
+    .btn-red { background: var(--red); color: #FFFFFF; }
+    .tab { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-grow: 1;
+           font: 500 10.5px/1 Karla, Arial, sans-serif; letter-spacing: .04em; color: #8A8078; cursor: pointer; }
+    .tab svg { width: 21px; height: 21px; }
+    .pin { position: absolute; transform: translate(-50%,-100%); cursor: pointer; }
+    .pin .dot { width: 13px; height: 13px; border-radius: 50%; background: #FFFFFF; border: 3.5px solid var(--red); }
+    .pin-on .dot { background: var(--red); border-color: #FFFFFF; transform: scale(1.3); }
+  </style>
+</helmet>
+
+<div style="--red: {{red}}; width: 390px; background: #FAF8F5; overflow: hidden">
+
+  <!-- hero -->
+  <section style="position: relative; height: 640px; overflow: hidden">
+    <div class="scene sky-dawn t-alpine" style="position: absolute; inset: 0">
+      <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+    </div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,14,.55) 0%, rgba(20,17,14,.10) 38%, rgba(20,17,14,.78) 100%)"></div>
+    <div style="position: relative; display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 0">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <div style="width: 26px; height: 26px; background: var(--red); position: relative; border-radius: 2px">
+          <div style="position: absolute; left: 50%; top: 22%; width: 3px; height: 56%; margin-left: -1.5px; background: #FFFFFF"></div>
+          <div style="position: absolute; top: 50%; left: 22%; height: 3px; width: 56%; margin-top: -1.5px; background: #FFFFFF"></div>
+        </div>
+        <div class="serif" style="color: #FBF9F6; font-size: 16px">Grüezi Schweiz</div>
+      </div>
+      <div style="color: #FBF9F6; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </div>
+    </div>
+    <div style="position: absolute; left: 20px; right: 20px; bottom: 34px">
+      <div class="eyebrow" style="color: #F1DED4">26 cantons · 4 languages</div>
+      <h1 class="serif" style="margin: 14px 0 0; color: #FBF9F6; font-size: 46px; line-height: 1.0; font-weight: 400">
+        The mountains are three hours from <em style="font-style: italic; color: #FFD9D3">everywhere</em>.
+      </h1>
+      <p style="margin: 16px 0 0; color: #E4DAD3; font-size: 15px; line-height: 1.6; font-weight: 300">
+        Routes, passes, hostels and corner-shop chocolate — on a backpack budget.
+      </p>
+      <button class="btn btn-red" style="width: 100%; margin-top: 22px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>
+        Start with the routes
+      </button>
+    </div>
+  </section>
+
+  <!-- history -->
+  <section style="padding: 40px 20px 44px">
+    <div class="eyebrow" style="color: var(--red)">Chapter one</div>
+    <h2 class="serif" style="margin: 12px 0 14px; font-size: 32px; line-height: 1.06; font-weight: 400">A country built on a promise</h2>
+    <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.68; color: #4A423B; font-weight: 300">
+      Not a kingdom but an alliance between valley communities, still negotiating what that means seven centuries later.
+    </p>
+    <sc-for list="{{timeline}}" as="ev" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: 62px minmax(0,1fr); gap: 14px; padding: 16px 0; border-top: 1px solid #E4DED5">
+        <div class="serif" style="font-size: 20px; color: var(--red); line-height: 1.1">{{ev.year}}</div>
+        <div>
+          <div style="font-weight: 600; font-size: 14.5px">{{ev.title}}</div>
+          <div style="margin-top: 5px; font-size: 13.5px; line-height: 1.58; color: #6E6862; font-weight: 300">{{ev.body}}</div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- swipe cards -->
+  <section style="padding: 40px 0 44px">
+    <div style="padding: 0 20px">
+      <div class="eyebrow" style="color: var(--red)">Three ways to travel</div>
+      <h2 class="serif" style="margin: 12px 0 20px; font-size: 32px; line-height: 1.06; font-weight: 400">Pick your altitude</h2>
+    </div>
+    <div style="display: flex; gap: 14px; padding: 0 20px; overflow: hidden">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="3">
+        <div style="position: relative; min-width: 246px; height: 330px; border-radius: 3px; overflow: hidden; box-shadow: 0 14px 30px rgba(22,19,15,.16)">
+          <div class="scene {{c.cls}}" style="position: absolute; inset: 0">
+            <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+          </div>
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,14,.06) 45%, rgba(20,17,14,.84) 100%)"></div>
+          <div style="position: absolute; top: 16px; left: 16px; height: 28px; padding: 0 12px; display: inline-flex; align-items: center; border-radius: 999px; background: var(--red); color: #FFF; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase">{{c.tag}}</div>
+          <div style="position: absolute; left: 18px; right: 18px; bottom: 18px">
+            <h3 class="serif" style="margin: 0; color: #FBF9F6; font-size: 26px; line-height: 1.08; font-weight: 400">{{c.title}}</h3>
+            <div style="display: flex; gap: 14px; margin-top: 12px; color: #E4DAD3; font-size: 12.5px; font-weight: 500">
+              <span>{{c.days}}</span><span>·</span><span>{{c.cost}}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- gallery -->
+  <section style="padding: 0 20px 44px">
+    <div class="eyebrow" style="color: var(--red)">The photo wall</div>
+    <h2 class="serif" style="margin: 12px 0 18px; font-size: 32px; line-height: 1.06; font-weight: 400">Frames from the trail</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px">
+      <sc-for list="{{gallery}}" as="g" hint-placeholder-count="6">
+        <div style="position: relative; height: 150px; overflow: hidden; border-radius: 2px">
+          <div class="scene {{g.cls}}" style="position: absolute; inset: 0">
+            <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i>
+          </div>
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,17,14,0) 52%, rgba(20,17,14,.7) 100%)"></div>
+          <div style="position: absolute; left: 12px; bottom: 11px; color: #FBF9F6">
+            <div style="font-size: 13px; font-weight: 600">{{g.name}}</div>
+            <div style="font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #D7CCC4; margin-top: 3px">{{g.canton}}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- map -->
+  <section style="background: #16130F; color: #FBF9F6; padding: 40px 20px 44px">
+    <div class="eyebrow" style="color: #E8877F">Where should you go?</div>
+    <h2 class="serif" style="margin: 12px 0 18px; font-size: 32px; line-height: 1.06; font-weight: 400; color: #FBF9F6">The recommendation map</h2>
+    <div style="display: flex; gap: 8px; overflow: hidden; margin-bottom: 18px">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+        <div class="chip" onClick="{{f.go}}" style="flex-shrink: 0; background: {{f.bg}}; border-color: {{f.bc}}; color: {{f.fg}}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{f.icon}}"/></svg>
+          {{f.label}}
+        </div>
+      </sc-for>
+    </div>
+    <div style="position: relative; background: #1F1B16; border: 1px solid #332C25; border-radius: 3px; padding: 14px">
+      <div style="position: relative; width: 100%; padding-bottom: 62%">
+        <svg viewBox="0 0 1000 620" style="position: absolute; inset: 0; width: 100%; height: 100%">
+          <path d="M70 380 L150 330 L212 300 L252 250 L300 190 L332 120 L362 76 L420 96 L470 70 L530 100 L600 86 L660 106 L720 96 L762 130 L820 160 L880 200 L950 250 L965 300 L930 332 L890 320 L860 350 L830 400 L790 420 L760 470 L730 520 L700 572 L664 546 L640 480 L600 460 L540 470 L480 450 L420 460 L360 440 L300 430 L250 415 L200 430 L150 420 L100 400 Z"
+                fill="#2A241D" stroke="#4A4036" stroke-width="2.5"/>
+        </svg>
+        <sc-for list="{{places}}" as="p" hint-placeholder-count="9">
+          <div class="pin {{p.cls}}" onClick="{{p.go}}" style="left: {{p.x}}; top: {{p.y}}; opacity: {{p.op}}">
+            <div class="dot"></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="background: #FBF9F6; color: #16130F; border-radius: 3px; overflow: hidden; margin-top: 16px">
+      <div class="scene {{sel.cls}}" style="height: 130px">
+        <i class="r1"></i><i class="r2"></i><i class="r3"></i><i class="w"></i><i class="gr"></i><i class="vg"></i>
+      </div>
+      <div style="padding: 18px 18px 20px">
+        <div class="eyebrow" style="color: var(--red)">{{sel.canton}}</div>
+        <h3 class="serif" style="margin: 8px 0 0; font-size: 26px; font-weight: 400">{{sel.name}}</h3>
+        <p style="margin: 10px 0 0; font-size: 14px; line-height: 1.62; color: #4A423B; font-weight: 300">{{sel.body}}</p>
+        <div style="display: flex; align-items: flex-start; gap: 9px; margin-top: 14px; font-size: 13.5px; color: #4A423B">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#C31B18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M4 10h16M8 20h8M10 16v4M14 16v4"/></svg>
+          <span>{{sel.getting}}</span>
+        </div>
+        <button class="btn btn-red" style="width: 100%; margin-top: 16px; height: 48px">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          Add to my route
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- catalog -->
+  <section style="background: #F1EBE3; padding: 40px 20px 44px">
+    <div class="eyebrow" style="color: var(--red)">Supermarket &amp; souvenir field guide</div>
+    <h2 class="serif" style="margin: 12px 0 16px; font-size: 32px; line-height: 1.06; font-weight: 400">What to put in the backpack</h2>
+    <div style="display: flex; gap: 8px; margin-bottom: 18px">
+      <sc-for list="{{shopTabs}}" as="t" hint-placeholder-count="3">
+        <div class="chip" onClick="{{t.go}}" style="height: 42px; padding: 0 14px; background: {{t.bg}}; border-color: {{t.bc}}; color: {{t.fg}}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{t.icon}}"/></svg>
+          {{t.label}}
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px">
+      <sc-for list="{{goods}}" as="p" hint-placeholder-count="6">
+        <div style="background: #FFFFFF; border-radius: 3px; overflow: hidden">
+          <div style="height: 116px; background: {{p.swatch}}; display: flex; align-items: center; justify-content: center">
+            <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="{{p.ink}}" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{p.icon}}"/></svg>
+          </div>
+          <div style="padding: 14px">
+            <div class="serif" style="font-size: 18px; line-height: 1.15">{{p.name}}</div>
+            <div style="margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--red)">{{p.price}}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- bottom tab bar -->
+  <div style="display: flex; align-items: center; gap: 4px; padding: 14px 12px 22px; background: #FBF9F6; border-top: 1px solid #E4DED5">
+    <div class="tab" style="color: #C31B18">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-13 4 8 3-5 5 10z"/></svg>Explore
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Map
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="12" rx="2"/><path d="M4 10h16M8 20h8M10 16v4M14 16v4"/></svg>Rail
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16l-1.4 10.4a2 2 0 01-2 1.6H7.4a2 2 0 01-2-1.6zM9 6V4.5A3 3 0 0115 4.5V6"/></svg>Shop
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>Me
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "red": {"editor":"color","default":"#C31B18","options":["#C31B18","#D8232A","#8E110F","#16130F"],"section":"Brand"},
+  "$preview": {"width":390,"height":4300}
+}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'all', place: 0, shop: 'all' };
+  }
+  renderVals() {
+    var self = this;
+    var red = this.props.red || '#C31B18';
+
+    var timeline = [
+      { year: '1291', title: 'The Rütli oath', body: 'Three valley cantons swear a defensive pact above Lake Lucerne. Still the national holiday, 1 August.' },
+      { year: '1648', title: 'Formally recognised', body: 'The Peace of Westphalia settles the paperwork: out of the Holy Roman Empire for good.' },
+      { year: '1815', title: 'Neutrality on paper', body: 'The Congress of Vienna guarantees permanent neutrality and draws borders that have barely moved.' },
+      { year: '1848', title: 'One federal state', body: 'A federal constitution, direct democracy, and Bern as the seat of government.' },
+      { year: '1863', title: 'The Red Cross', body: 'Founded in Geneva. The emblem is the Swiss flag with the colours reversed.' },
+      { year: '2002', title: 'Joins the UN', body: 'By referendum, and still outside the EU. Schengen followed in 2008; the franc stayed.' }
+    ];
+
+    var gallery = [
+      { name: 'Oeschinensee', canton: 'Bern', cls: 'sky-clear t-glacier' },
+      { name: 'Chapel Bridge', canton: 'Lucerne', cls: 'sky-mist t-slate' },
+      { name: 'Aletsch Glacier', canton: 'Valais', cls: 'sky-dusk t-glacier' },
+      { name: 'Staubbach Falls', canton: 'Bern', cls: 'sky-mist t-emerald' },
+      { name: 'Lake Lugano', canton: 'Ticino', cls: 'sky-gold t-emerald' },
+      { name: 'Gornergrat', canton: 'Valais', cls: 'sky-dawn t-alpine' }
+    ];
+
+    var cards = [
+      { tag: 'Rail', title: 'The window seat', cls: 'sky-clear t-glacier', days: '7–10 days', cost: 'Pass-heavy' },
+      { tag: 'Trail', title: 'Hut to hut', cls: 'sky-gold t-emerald', days: '5–14 days', cost: 'Cheapest per day' },
+      { tag: 'Cities', title: 'The short hop', cls: 'sky-dusk t-slate', days: '4–6 days', cost: 'Hostel dorms' }
+    ];
+
+    var placeData = [
+      { name: 'Zermatt', canton: 'Valais', x: '40%', y: '72%', cls: 'sky-dawn t-alpine', tags: ['hiking'],
+        body: 'Car-free, ringed by 4,000-metre peaks. Beds are expensive; the trails out of the village cost nothing.',
+        getting: 'Change at Visp — cars stop at Täsch.' },
+      { name: 'Lauterbrunnen', canton: 'Bern', x: '45.5%', y: '64%', cls: 'sky-mist t-emerald', tags: ['budget', 'hiking'],
+        body: 'Seventy-two waterfalls into one flat glacial trench, with car-free Wengen and Mürren on the terraces above.',
+        getting: '20 minutes by train from Interlaken Ost.' },
+      { name: 'Interlaken', canton: 'Bern', x: '48.5%', y: '55%', cls: 'sky-clear t-glacier', tags: ['budget', 'lakes'],
+        body: 'The hub between two lakes. Every Oberland train starts here.',
+        getting: 'Direct from Bern, Lucerne and Zürich.' },
+      { name: 'Lucerne', canton: 'Lucerne', x: '53%', y: '41%', cls: 'sky-gold t-golden', tags: ['city', 'lakes'],
+        body: 'Covered wooden bridge, painted facades, and lake steamers your rail pass may cover.',
+        getting: 'One hour from Zürich; nearer three from Geneva.' },
+      { name: 'Zürich', canton: 'Zürich', x: '59%', y: '29%', cls: 'sky-dusk t-slate', tags: ['city'],
+        body: 'The gateway. River swimming in summer, and the busiest station in the country a bridge from the old town.',
+        getting: 'Airport is 10 minutes from the centre.' },
+      { name: 'Bern', canton: 'Bern', x: '39.5%', y: '48%', cls: 'sky-gold t-golden', tags: ['city', 'budget'],
+        body: 'Sandstone old town inside a river bend, six kilometres of arcades, locals floating down the Aare.',
+        getting: 'Under two hours from almost anywhere.' },
+      { name: 'Geneva', canton: 'Geneva', x: '12%', y: '61%', cls: 'sky-mist t-slate', tags: ['city', 'lakes'],
+        body: 'French-speaking and international, at the far end of the lake. Good entry from France.',
+        getting: 'Airport has its own rail station.' },
+      { name: 'Engadin', canton: 'Graubünden', x: '84%', y: '50%', cls: 'sky-clear t-glacier', tags: ['hiking'],
+        body: 'High lakes and sgraffito villages, with the Bernina line climbing past glaciers.',
+        getting: 'Rhaetian Railway via Chur.' },
+      { name: 'Lugano', canton: 'Ticino', x: '69.5%', y: '87%', cls: 'sky-gold t-emerald', tags: ['lakes', 'city'],
+        body: 'Italian-speaking Switzerland: palm trees, grotti in the hills, swimmable river gorges.',
+        getting: 'Two hours from Zürich through the Gotthard.' }
+    ];
+
+    var filterDefs = [
+      { id: 'all', label: 'All', icon: 'M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.4 9.4l6.1-.8z' },
+      { id: 'budget', label: 'Budget', icon: 'M8 7V5a4 4 0 018 0v2M5 7h14v13H5z' },
+      { id: 'hiking', label: 'Hiking', icon: 'M3 20l6-13 4 8 3-5 5 10z' },
+      { id: 'city', label: 'Cities', icon: 'M6 21V9l6-5 6 5v12M10 21v-6h4v6' },
+      { id: 'lakes', label: 'Lakes', icon: 'M3 15c3-3 6 3 9 0s6-3 9 0M3 19c3-3 6 3 9 0s6-3 9 0M12 4l3 5H9z' }
+    ];
+
+    var active = this.state.filter;
+
+    var filters = filterDefs.map(function (f) {
+      var on = active === f.id;
+      return {
+        label: f.label, icon: f.icon,
+        bg: on ? red : 'transparent',
+        bc: on ? red : '#4A4036',
+        fg: on ? '#FFFFFF' : '#D7CCC4',
+        go: function () { self.setState({ filter: f.id }); }
+      };
+    });
+
+    var places = placeData.map(function (p, i) {
+      var match = active === 'all' || p.tags.indexOf(active) > -1;
+      return {
+        x: p.x, y: p.y,
+        op: match ? '1' : '.22',
+        cls: i === self.state.place ? 'pin-on' : '',
+        go: function () { self.setState({ place: i }); }
+      };
+    });
+
+    var goods = [
+      { name: 'Toblerone', tab: 'grocery', price: 'CHF 3–5', swatch: '#F2E3C6', ink: '#6B5327', icon: 'M12 4l8 14H4zM8 18l4-7 4 7' },
+      { name: 'Le Gruyère AOP', tab: 'grocery', price: 'CHF 3–6', swatch: '#F0DFB4', ink: '#6E5518', icon: 'M3 16l9-8h9v8zM8 13v.01M13 12v.01M17 14v.01' },
+      { name: 'Rivella', tab: 'grocery', price: 'CHF 1.5–2.5', swatch: '#DCE6EA', ink: '#2E4A55', icon: 'M10 3h4v3l2 4v11H8V10l2-4z' },
+      { name: 'Aromat', tab: 'grocery', price: 'CHF 3–4', swatch: '#F3D9AE', ink: '#6A4A17', icon: 'M9 4h6v3H9zM8 7h8v13H8zM10 11h4M10 14h4' },
+      { name: 'Victorinox knife', tab: 'souvenir', price: 'CHF 25–70', swatch: '#EDD3D0', ink: '#7A2A26', icon: 'M4 12a8 8 0 0116 0v3H4zM4 15h16M12 8v4' },
+      { name: 'Cowbell', tab: 'souvenir', price: 'CHF 20–120', swatch: '#E7DCCB', ink: '#5C4A2E', icon: 'M9 4h6v4a5 5 0 013 4.6V17H6v-4.4A5 5 0 019 8zM6 17h12M11 20h2' },
+      { name: 'Läderach', tab: 'souvenir', price: 'CHF 10–14', swatch: '#E3D2C4', ink: '#5A4232', icon: 'M4 5h16v14H4zM4 12h16M12 5v14' },
+      { name: 'Ricola drops', tab: 'grocery', price: 'CHF 2–3', swatch: '#D9E5D2', ink: '#3C5433', icon: 'M12 21V9M12 12c-4 0-6-3-6-6 3 0 6 1 6 6zM12 14c4 0 6-3 6-6-3 0-6 1-6 6z' }
+    ].filter(function (g) { return self.state.shop === 'all' || self.state.shop === g.tab; });
+
+    var shopTabs = [
+      { id: 'all', label: 'All', icon: 'M4 6h16M4 12h16M4 18h16' },
+      { id: 'grocery', label: 'Groceries', icon: 'M4 6h16l-1.4 10.4a2 2 0 01-2 1.6H7.4a2 2 0 01-2-1.6zM9 6V4.5A3 3 0 0115 4.5V6' },
+      { id: 'souvenir', label: 'Souvenirs', icon: 'M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.4 9.4l6.1-.8z' }
+    ].map(function (t) {
+      var on = self.state.shop === t.id;
+      return {
+        label: t.label, icon: t.icon,
+        bg: on ? red : '#FFFFFF', bc: on ? red : '#DED7CE', fg: on ? '#FFFFFF' : '#4A423B',
+        go: function () { self.setState({ shop: t.id }); }
+      };
+    });
+
+    return {
+      red: red,
+      cards: cards,
+      timeline: timeline,
+      gallery: gallery,
+      shopTabs: shopTabs,
+      filters: filters,
+      places: places,
+      goods: goods,
+      sel: placeData[this.state.place] || placeData[0]
+    };
+  }
+}
+</script>
+</body>
+</html>
