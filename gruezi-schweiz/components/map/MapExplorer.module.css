@@ -41,9 +41,25 @@
 }
 
 /* Pin = a 44px-minimum button (spec §6 touch target) whose visual is a 15px
- * dot with a 4px ring; the button box is the invisible hit area. */
+ * dot with a 4px ring; the button box is the invisible hit area.
+ *
+ * z-index: on the Region Map, .mapBox's first child is a Leaflet
+ * `.leaflet-container` (RegionMapTiles). Leaflet's own stylesheet gives its
+ * panes (`.leaflet-pane`, `.leaflet-tile-pane`, etc.) `position: absolute`
+ * plus an explicit `z-index` (200-1000, see leaflet/dist/leaflet.css) — a
+ * positioned element with a non-auto z-index always establishes its own
+ * stacking context. Without an explicit z-index here, `.pin` sits at the
+ * implicit `auto` stack level, which paints *below* any sibling with a real
+ * z-index regardless of DOM order (later-sibling-wins only applies among
+ * elements at the same stack level) — so pins were hit-testable but not
+ * visually painted. 1000 clears Leaflet's highest default pane/control
+ * z-index (1000, `.leaflet-top`/`.leaflet-bottom`); ties break to DOM order,
+ * and pins are later siblings than the map, so this is safe headroom rather
+ * than a magic number. Harmless on the SVG-based National Map, which has no
+ * Leaflet container/panes to stack against. */
 .pin {
   position: absolute;
+  z-index: 1000;
   width: 44px;
   height: 44px;
   margin: 0;
