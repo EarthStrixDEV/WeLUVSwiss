@@ -1,0 +1,22 @@
+/* Fills .mapBox exactly like the SVG backdrop it replaces (MapExplorer.module.css
+ * sets padding-bottom on .mapBox to fix the aspect ratio; both backdrops are
+ * absolutely positioned to fill it). Locked viewport (ticket 02): no grab
+ * cursor, since the map never pans. */
+.map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+}
+
+.map :global(.leaflet-grab) {
+  cursor: default;
+}
+
+/* Keep the required OSM/swisstopo attribution readable against tiles without
+ * competing visually with the pins/legend rendered above it by MapExplorer. */
+.map :global(.leaflet-control-attribution) {
+  font-size: 10.5px;
+  background: rgba(255, 255, 255, 0.85);
+}

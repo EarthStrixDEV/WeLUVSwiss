@@ -1,6 +1,13 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FlagMark } from "./FlagMark";
 import { Icon } from "./Icon";
+import { PlaceSearch } from "./PlaceSearch";
+import { usePlaceSearch } from "@/lib/places/usePlaceSearch";
+import type { Place } from "@/lib/places/lookup";
 import buttons from "./buttons.module.css";
 import styles from "./Header.module.css";
 
@@ -13,10 +20,20 @@ const NAV: { key: NavKey; label: string; href: string; icon: string }[] = [
   { key: "find-a-trip", label: "Find a Trip", href: "/find-a-trip", icon: "M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3" },
 ];
 
+const SEARCH_ICON_D = "M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4.3-4.3";
+
 /**
  * Shared page header. `variant="floating"` overlays a hero scene (landing);
  * `variant="solid"` is the inner pages' ink bar. Below 760px the nav links
  * hide — the bottom tab bar is the navigation there (spec §4.1 mobile).
+ *
+ * The magnifying-glass button (both variants) sits in `.inner` next to the
+ * brand mark rather than inside `.nav`, so it stays reachable below 760px
+ * where `.nav` is display:none — this is the mobile entry point for Place
+ * Search (CONTEXT.md "Place Search"; ticket 03) without adding a 6th tab to
+ * BottomTabBar. Query state and the lookup/navigation wiring live here via
+ * `usePlaceSearch` (see PlaceSearch props) to keep this component focused on
+ * layout/markup.
  */
 export function Header({
   active,
@@ -25,6 +42,28 @@ export function Header({
   active?: NavKey;
   variant?: "solid" | "floating";
 }) {
+  const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
+  const { query, setQuery, results, status, reset } = usePlaceSearch();
+
+  function closeSearch() {
+    setSearchOpen(false);
+    reset();
+  }
+
+  function handleSelect(place: Place) {
+    // Bernese Oberland is the only region in v1 (CONTEXT.md "Place Search"),
+    // so the destination is fixed — only which pin to pre-select varies.
+    // `initialIndex` on the region page's MapExplorer is read once on mount
+    // (see MapExplorer.tsx), so the selected place has to reach it before
+    // first render rather than imperatively after navigation — a URL search
+    // param the region page resolves server-side into an index is the
+    // simplest way to do that in the App Router (see app/regions/[region]/page.tsx).
+    const params = new URLSearchParams({ place: place.name });
+    router.push(`/regions/bernese-oberland?${params.toString()}`);
+    closeSearch();
+  }
+
   return (
     <header className={variant === "floating" ? styles.floating : styles.solid}>
       <div className={`${styles.inner} gutter`}>
@@ -52,7 +91,25 @@ export function Header({
           Plan My Route
         </Link>
       </nav>
+      <button
+        type="button"
+        className={styles.searchButton}
+        onClick={() => setSearchOpen(true)}
+        aria-label="Find a place"
+      >
+        <Icon d={SEARCH_ICON_D} size={19} strokeWidth={1.7} />
+      </button>
       </div>
+
+      <PlaceSearch
+        open={searchOpen}
+        query={query}
+        results={results}
+        status={status}
+        onQueryChange={setQuery}
+        onSelect={handleSelect}
+        onClose={closeSearch}
+      />
     </header>
   );
 }

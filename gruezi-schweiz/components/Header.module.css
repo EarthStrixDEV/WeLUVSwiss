@@ -78,6 +78,31 @@
   }
 }
 
+/* Place Search entry point (ticket 03) — lives in .inner, not .nav, so it
+ * stays reachable below 760px where .nav is hidden and the bottom tab bar
+ * (fixed at 5 tabs) carries navigation instead. Visible at every width. */
+.searchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--on-dark);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.searchButton:hover {
+  color: var(--red);
+}
+
+.solid .searchButton:hover {
+  background: var(--dark-panel);
+}
+
 @media (max-width: 760px) {
   /* The bottom tab bar carries navigation on mobile. */
   .nav {

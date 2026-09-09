@@ -1,0 +1,39 @@
+{
+  "feature": "map-place-search",
+  "sizing": "Large — multi-layer (service + rendering architecture + global UI/nav), external API input, blocking chain across all 3 tickets",
+  "tasks": [
+    {
+      "id": "T1",
+      "ticket": "01-place-lookup-service.md",
+      "title": "Place lookup service (geo.admin.ch + OSM Nominatim fallback)",
+      "layer": "logic",
+      "owner": "มายด์ลิน (Maidlin) — Backend Logic Engineer",
+      "depends_on": [],
+      "needs_security_audit": true,
+      "status": "done"
+    },
+    {
+      "id": "T2",
+      "ticket": "02-region-map-tile-migration.md",
+      "title": "Region Map migration to real lat/lng pins on OSM tile layer, locked viewport",
+      "layer": "frontend-ui",
+      "owner": "ออม (Aom) — Frontend UI Engineer",
+      "depends_on": ["T1"],
+      "needs_security_audit": false,
+      "status": "done",
+      "qa_notes": "Round 1 found a Leaflet fitBounds integer-zoom-snap bug causing pin drift; fixed via zoomSnap={0} + boundsOptions={{animate:false}}; re-verified independently against Leaflet source, resolved."
+    },
+    {
+      "id": "T3",
+      "ticket": "03-global-place-search.md",
+      "title": "Global \"Find a place\" search (Header icon → overlay → navigate), incl. mobile entry point",
+      "layer": "frontend-ui + integration",
+      "owner": "ออม (Aom) — Frontend UI Engineer, then เบล (Bell) — Frontend Integration Engineer",
+      "depends_on": ["T1", "T2"],
+      "needs_security_audit": true,
+      "status": "done",
+      "qa_notes": "Round 1 found exact-match name comparison failing against real geo.admin.ch canton-qualified labels (e.g. 'Mürren (BE)'), silently mis-selecting the wrong pin; fixed by extracting lib/places/match.ts with qualifier-stripping + regression tests; re-verified, resolved. Security audit: no blocking findings."
+    }
+  ],
+  "checkpoint_notes": "All 3 tickets done, QA-approved, security-audited (no findings). Ready to commit."
+}

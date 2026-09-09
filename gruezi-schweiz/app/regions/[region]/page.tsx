@@ -11,7 +11,9 @@ import { MapExplorer } from "@/components/map/MapExplorer";
 import buttons from "@/components/buttons.module.css";
 import { REGIONS } from "@/lib/data/regions";
 import type { MapLegendItem, MapPlace } from "@/lib/types";
-import { RegionMapSvg } from "./RegionMapSvg";
+import { projectToPercent } from "@/lib/map-projection";
+import { findMatchingSpotIndex } from "@/lib/places/match";
+import { RegionMapTilesLoader } from "./RegionMapTilesLoader";
 import styles from "./page.module.css";
 
 const CLOCK_ICON = "M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2";
@@ -44,20 +46,42 @@ export default async function RegionPage(props: PageProps<"/regions/[region]">) 
   const content = REGIONS[region];
   if (!content) notFound();
 
-  const places: MapPlace[] = content.spots.map((spot) => ({
-    name: spot.name,
-    x: spot.x,
-    y: spot.y,
-    tags: [spot.type],
-    scene: spot.scene,
-    image: spot.image,
-    eyebrow: spot.kind,
-    body: spot.body,
-    facts: [
-      { icon: CLOCK_ICON, text: spot.time },
-      { icon: WALLET_ICON, text: spot.cost },
-    ],
-  }));
+  // Ticket 03: Place Search hands off the selected place via a `?place=`
+  // search param (see components/Header.tsx handleSelect) rather than
+  // imperative client state, because MapExplorer only reads `initialIndex`
+  // once on mount (components/map/MapExplorer.tsx) — it isn't reactive to
+  // prop changes after that, so the match has to be resolved server-side
+  // before the first render. Matched by name (the key shared between
+  // lookupPlace's Place and Spot) case-insensitively, since geoadmin/OSM
+  // labels aren't guaranteed to match a spot's hardcoded name byte-for-byte —
+  // geo.admin.ch in particular appends a canton qualifier like "Mürren (BE)"
+  // that findMatchingSpotIndex strips before comparing (lib/places/match.ts).
+  // No match (unknown place, or param absent) falls back to the pre-existing
+  // hardcoded default rather than crashing or silently showing nothing.
+  const { place: placeParam } = await props.searchParams;
+  const requestedPlace = Array.isArray(placeParam) ? placeParam[0] : placeParam;
+  const matchedSpotIndex = requestedPlace ? findMatchingSpotIndex(content.spots, requestedPlace) : -1;
+  const initialIndex = matchedSpotIndex >= 0 ? matchedSpotIndex : 3;
+
+  const places: MapPlace[] = content.spots.map((spot) => {
+    // Ticket 02: pins are placed from the spot's real lat/lng, projected
+    // against the region's locked tile-map bounds, not hand-picked percentages.
+    const { x, y } = projectToPercent(spot.lat, spot.lng, content.tileBounds);
+    return {
+      name: spot.name,
+      x,
+      y,
+      tags: [spot.type],
+      scene: spot.scene,
+      image: spot.image,
+      eyebrow: spot.kind,
+      body: spot.body,
+      facts: [
+        { icon: CLOCK_ICON, text: spot.time },
+        { icon: WALLET_ICON, text: spot.cost },
+      ],
+    };
+  });
 
   return (
     <>
@@ -104,8 +128,8 @@ export default async function RegionPage(props: PageProps<"/regions/[region]">) 
             places={places}
             filters={content.spotFilters}
             legend={MAP_LEGEND}
-            mapSvg={<RegionMapSvg data={content.mapSvg} />}
-            initialIndex={3}
+            mapSvg={<RegionMapTilesLoader bounds={content.tileBounds} />}
+            initialIndex={initialIndex}
             placeNoun="places"
           />
           </div>

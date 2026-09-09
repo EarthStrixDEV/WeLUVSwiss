@@ -10,8 +10,13 @@ export interface Spot {
   name: string;
   kind: string;
   type: 'village' | 'ride' | 'water';
-  x: string;
-  y: string;
+  /** Real-world WGS84 coordinates (ticket 02), resolved once via
+   *  lib/places/lookup.ts against geo.admin.ch and pasted in here — this is
+   *  static editorial content, not fetched at request time. Projected to an
+   *  on-map percentage position by lib/map-projection.ts against the
+   *  region's tileBounds; superseded the old hand-picked x/y percentages. */
+  lat: number;
+  lng: number;
   scene: SceneVariant;
   image: string;
   time: string;
@@ -61,6 +66,19 @@ export interface RegionMapSvg {
   ridges: string;
 }
 
+/** Locked viewport for the region's OSM tile map (ADR 0001, ticket 02) — a
+ *  fixed south-west/north-east WGS84 box framing all of the region's spots
+ *  with margin. The tile layer is clamped to exactly this view (no user pan
+ *  or zoom), and `spots[].lat/lng` are projected into on-map percentage
+ *  positions against these same bounds so pins land where the tiles put
+ *  them. Padded ~18% beyond the spots' own bounding box on each side. */
+export interface RegionTileBounds {
+  south: number;
+  west: number;
+  north: number;
+  east: number;
+}
+
 export interface RegionContent {
   slug: string;
   name: string;
@@ -70,6 +88,8 @@ export interface RegionContent {
   lead: string;
   keyfacts: { v: string; l: string }[];
   mapSvg: RegionMapSvg;
+  /** Locked viewport bounds for the tile-based region map (ticket 02). */
+  tileBounds: RegionTileBounds;
   spotFilters: FilterDef[];
   spots: Spot[];
   /** Ranking is editorial, explicitly not by fame (spec §4.2). */
@@ -103,6 +123,10 @@ export const REGIONS: Record<string, RegionContent> = {
       rail: 'M150 270 L400 240 L625 380 M400 240 L395 415 L520 515 M150 270 L175 470',
       ridges: 'M300 470 L360 380 L420 460 M560 470 L620 400 L700 480 M760 300 L830 230 L900 320',
     },
+    // Bounding box framing all 9 spots below with ~18% margin on each side,
+    // adjusted to the .mapBox aspect ratio (padding-bottom: 62%) so the
+    // locked tile view and the percentage-projected pins agree (ticket 02).
+    tileBounds: { south: 46.416062, west: 7.385858, north: 46.789943, east: 8.263581 },
     spotFilters: [
       { id: 'all', label: 'Everything', icon: 'M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.4 9.4l6.1-.8z' },
       { id: 'village', label: 'Villages', icon: 'M6 21V9l6-5 6 5v12M10 21v-6h4v6' },
@@ -111,47 +135,47 @@ export const REGIONS: Record<string, RegionContent> = {
     ],
     spots: [
       {
-        name: 'Thun', kind: 'Lakeside town', type: 'village', x: '15%', y: '43.5%', scene: 'sky-gold t-golden', image: '/images/regions/bernese-oberland/spot-thun.png',
+        name: 'Thun', kind: 'Lakeside town', type: 'village', lat: 46.740459, lng: 7.607642, scene: 'sky-gold t-golden', image: '/images/regions/bernese-oberland/spot-thun.png',
         time: 'Half a day', cost: 'Free to walk',
         body: 'A castle above a covered wooden bridge, and the cheapest beds within reach of the lake. Most people skip it, which is the argument for going.',
       },
       {
-        name: 'Interlaken', kind: 'Hub town', type: 'village', x: '40%', y: '38.7%', scene: 'sky-clear t-glacier', image: '/images/regions/bernese-oberland/spot-interlaken.png',
+        name: 'Interlaken', kind: 'Hub town', type: 'village', lat: 46.684219, lng: 7.878633, scene: 'sky-clear t-glacier', image: '/images/regions/bernese-oberland/spot-interlaken.png',
         time: 'Base yourself here', cost: 'Free',
         body: 'Wedged between the two lakes with a station at each end. Touristy in the middle, but every train in the region starts here.',
       },
       {
-        name: 'Schynige Platte', kind: 'Ridge walk', type: 'ride', x: '47%', y: '52%', scene: 'sky-mist t-emerald', image: '/images/regions/bernese-oberland/spot-schynige.png',
+        name: 'Schynige Platte', kind: 'Ridge walk', type: 'ride', lat: 46.653625, lng: 7.908412, scene: 'sky-mist t-emerald', image: '/images/regions/bernese-oberland/spot-schynige.png',
         time: '5–6 hours', cost: 'CHF 32 return*',
         body: 'A wooden cog train from 1893 climbs to an alpine garden and the finest ridge walk in the Oberland — the whole Eiger–Mönch–Jungfrau wall, side on.',
       },
       {
-        name: 'Lauterbrunnen', kind: 'Valley floor', type: 'village', x: '38%', y: '68%', scene: 'sky-mist t-emerald', image: '/images/regions/bernese-oberland/spot-lauterbrunnen.png',
+        name: 'Lauterbrunnen', kind: 'Valley floor', type: 'village', lat: 46.553196, lng: 7.903941, scene: 'sky-mist t-emerald', image: '/images/regions/bernese-oberland/spot-lauterbrunnen.png',
         time: 'Half a day', cost: 'Free',
         body: 'Seventy-two waterfalls into one flat trench. Campsites and hostels on the floor, cliffs on both sides, and trains up either wall.',
       },
       {
-        name: 'Mürren', kind: 'Car-free village', type: 'village', x: '30%', y: '74%', scene: 'sky-clear t-alpine', image: '/images/regions/bernese-oberland/spot-murren.png',
+        name: 'Mürren', kind: 'Car-free village', type: 'village', lat: 46.559620, lng: 7.891747, scene: 'sky-clear t-alpine', image: '/images/regions/bernese-oberland/spot-murren.png',
         time: '3–4 hours', cost: 'CHF 12 up*',
         body: 'A shelf village at 1,650 m facing the Eiger head on. Walk up from Lauterbrunnen through the woods and the ride is free.',
       },
       {
-        name: 'Jungfraujoch', kind: 'High railway', type: 'ride', x: '52%', y: '84%', scene: 'sky-storm t-glacier', image: '/images/regions/bernese-oberland/spot-jungfraujoch.png',
+        name: 'Jungfraujoch', kind: 'High railway', type: 'ride', lat: 46.548008, lng: 7.979473, scene: 'sky-storm t-glacier', image: '/images/regions/bernese-oberland/spot-jungfraujoch.png',
         time: 'Full day', cost: 'CHF 100+ return*',
         body: 'The highest railway station in Europe at 3,454 m. Spectacular and expensive; on a cloudy day you pay it to stand in fog. Check the summit webcam first.',
       },
       {
-        name: 'Grindelwald', kind: 'Trail base', type: 'village', x: '63%', y: '61%', scene: 'sky-gold t-emerald', image: '/images/regions/bernese-oberland/spot-grindelwald.png',
+        name: 'Grindelwald', kind: 'Trail base', type: 'village', lat: 46.620018, lng: 8.041797, scene: 'sky-gold t-emerald', image: '/images/regions/bernese-oberland/spot-grindelwald.png',
         time: 'Two days', cost: 'Free to walk',
         body: 'Under the Eiger north face, with more marked trails leaving town than anywhere else in the region. Busier and pricier than Lauterbrunnen.',
       },
       {
-        name: 'Kandersteg', kind: 'Quiet valley', type: 'village', x: '16%', y: '76%', scene: 'sky-mist t-slate', image: '/images/regions/bernese-oberland/spot-kandersteg.png',
+        name: 'Kandersteg', kind: 'Quiet valley', type: 'village', lat: 46.465546, lng: 7.713510, scene: 'sky-mist t-slate', image: '/images/regions/bernese-oberland/spot-kandersteg.png',
         time: 'A day', cost: 'Free',
         body: 'The west end of the region, on the line to Valais. Far fewer visitors, and the trailhead for the Oeschinensee.',
       },
       {
-        name: 'Oeschinensee', kind: 'Alpine lake', type: 'water', x: '22%', y: '84%', scene: 'sky-clear t-glacier', image: '/images/regions/bernese-oberland/spot-oeschinensee.png',
+        name: 'Oeschinensee', kind: 'Alpine lake', type: 'water', lat: 46.498360, lng: 7.726671, scene: 'sky-clear t-glacier', image: '/images/regions/bernese-oberland/spot-oeschinensee.png',
         time: '4 hours', cost: 'Free on foot',
         body: 'A turquoise lake in a rock amphitheatre above Kandersteg. Walk up in about ninety minutes rather than paying for the gondola.',
       },
